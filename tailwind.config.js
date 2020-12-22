@@ -9,6 +9,9 @@ module.exports = {
     extend: {
       colors: {
         'hacker-orange': '#ff6600',
+        'gh-dark-banner': '#161b22',
+        'gh-dark-bg': '#0d1117',
+        'gh-dark-btn': '#21262d'
       }
     },
   },
