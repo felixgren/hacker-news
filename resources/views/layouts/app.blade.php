@@ -8,25 +8,25 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body class="bg-gray-200 dark:bg-dark-gh-bg">
+<body class="bg-gray-200 dark:bg-black-gh-bg">
     <nav class="bg-hacker-orange dark:bg-dark-gh-banner flex flex-wrap p-2 mb-6 sm:flex-nowrap sm:justify-between">
         <ul class="flex items-center">
             <li>
-                <a href="" class="navbar-link">Home</a>
+                <a href="" class="navbar-link dark:text-white">Home</a>
             </li>
             <li>
-                <a href="" class="navbar-link">Comments</a>
+                <a href="" class="navbar-link dark:text-white">Comments</a>
             </li>
         </ul>
 
-        <h1 class="font-mono font-bold order-first w-full sm:order-none sm:w-auto sm:text-xl">Hacker News</h1>
+        <h1 class="font-mono font-bold order-first w-full sm:order-none sm:w-auto sm:text-xl dark:text-white">Hacker News</h1>
 
         <ul class="flex items-center">
             <li>
-                <a href="" class="navbar-link">Login</a> {{-- Login / Username --}}
+                <a href="" class="navbar-link dark:text-white">Login</a> {{-- Login / Username --}}
             </li>
             <li>
-                <a href="" class="navbar-link">Register</a> {{-- Register / Logout --}}
+                <a href="" class="navbar-link dark:text-white">Register</a> {{-- Register / Logout --}}
             </li>
         </ul>
     </nav>
