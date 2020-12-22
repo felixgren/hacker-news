@@ -12,7 +12,8 @@ module.exports = {
         'black-gh-bg': '#06090f',
         'dark-gh-bg': '#0d1117',
         'dark-gh-banner': '#161b22',
-        'dark-gh-btn': '#21262d'
+        'dark-gh-btn': '#21262d',
+        'dark-gh-border': '#30363d1A'
       }
     },
   },
