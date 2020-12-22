@@ -2,5 +2,7 @@
 @extends('layouts.app') {{-- . same as /, just different notation --}}
 
 @section('content')
-Test
+<div class="bg-hacker-orange">
+    Test
+</div>
 @endsection

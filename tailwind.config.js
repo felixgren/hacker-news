@@ -6,7 +6,11 @@ module.exports = {
   ],
   darkMode: 'media', // or 'media' or 'class' (default: false)
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'hacker-orange': '#ff6600',
+      }
+    },
   },
   variants: {
     extend: {},
