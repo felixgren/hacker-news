@@ -9,24 +9,24 @@
 </head>
 
 <body class="bg-gray-200">
-    <nav class="bg-hacker-orange flex flex-wrap sm:flex-nowrap sm:justify-between p-2 mb-6">
+    <nav class="bg-hacker-orange flex flex-wrap p-2 mb-6 sm:flex-nowrap sm:justify-between">
         <ul class="flex items-center">
             <li>
-                <a href="" class="text-sm pr-3 sm:text-base sm:p-3">Home</a>
+                <a href="" class="navbar-link">Home</a>
             </li>
             <li>
-                <a href="" class="text-sm pr-3 sm:text-base sm:p-3">Comments</a>
+                <a href="" class="navbar-link">Comments</a>
             </li>
         </ul>
 
-        <h1 class="font-mono font-bold order-first sm:order-none w-full sm:w-auto sm:text-xl">Hacker News</h1>
+        <h1 class="font-mono font-bold order-first w-full sm:order-none sm:w-auto sm:text-xl">Hacker News</h1>
 
         <ul class="flex items-center">
             <li>
-                <a href="" class="text-sm pr-3 sm:text-base sm:p-3">Login</a> {{-- Login / Username --}}
+                <a href="" class="navbar-link">Login</a> {{-- Login / Username --}}
             </li>
             <li>
-                <a href="" class="text-sm pr-3 sm:text-base sm:p-3">Register</a> {{-- Register / Logout --}}
+                <a href="" class="navbar-link">Register</a> {{-- Register / Logout --}}
             </li>
         </ul>
     </nav>

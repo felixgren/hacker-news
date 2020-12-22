@@ -3,8 +3,8 @@
 
 @section('content')
 <div class="flex justify-center">
-    <div class="w-10/12 bg-white p-3 {{-- w-8/12 bg-white p-6 rounded-lg --}}">
-        Posts yes yes
+    <div class="w-10/12 bg-white p-3 sm:p-6 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg">
+        Posts yes yes yes
     </div>
 </div>
 @endsection

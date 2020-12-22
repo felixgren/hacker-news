@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .navbar-link {
+        @apply text-sm pr-3 sm:text-base sm:p-3;
+    }
+}
