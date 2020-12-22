@@ -1,0 +1,7 @@
+{
+    "emmet.triggerExpansionOnTab": true,
+    "blade.format.enable": true,
+    "[blade]": {
+        "editor.autoClosingBrackets": "always"
+    }
+}
