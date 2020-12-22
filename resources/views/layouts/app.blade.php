@@ -8,8 +8,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body class="bg-gray-200 dark:bg-gh-dark-bg">
-    <nav class="bg-hacker-orange dark:bg-gh-dark-banner flex flex-wrap p-2 mb-6 sm:flex-nowrap sm:justify-between">
+<body class="bg-gray-200 dark:bg-dark-gh-bg">
+    <nav class="bg-hacker-orange dark:bg-dark-gh-banner flex flex-wrap p-2 mb-6 sm:flex-nowrap sm:justify-between">
         <ul class="flex items-center">
             <li>
                 <a href="" class="navbar-link">Home</a>
