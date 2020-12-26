@@ -15,7 +15,7 @@
                 <a href="" class="navbar-link dark:text-white">Home</a>
             </li>
             <li>
-                <a href="" class="navbar-link dark:text-white">Comments</a>
+                <a href="/posts" class="navbar-link dark:text-white">Posts</a>
             </li>
         </ul>
 
@@ -26,7 +26,7 @@
                 <a href="" class="navbar-link dark:text-white">Login</a> {{-- Login / Username --}}
             </li>
             <li>
-                <a href="" class="navbar-link dark:text-white">Register</a> {{-- Register / Logout --}}
+                <a href="{{ route('register') }}" class="navbar-link dark:text-white">Register</a> {{-- Register / Logout --}}
             </li>
         </ul>
     </nav>

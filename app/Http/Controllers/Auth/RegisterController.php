@@ -9,7 +9,7 @@ class RegisterController extends Controller
 {
     // Same thing as including in route closure directly but using controller methods provide better structure, maintainability and extensibility.
     // Seperation of logic & MVC, but it would be possible to skip controllers entirely.
-    public function register()
+    public function index()
     {
         return view('auth.register');
     }
