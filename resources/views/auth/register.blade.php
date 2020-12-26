@@ -5,7 +5,8 @@
     <div class="w-10/12 bg-white p-3 sm:p-6 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-20">
         <h2 class="">Register</h2>
 
-        <form action="">
+        <form action="{{ route('register') }}" method="post">
+            @csrf
             <div class="my-4">
                 <label for="name" class="sr-only">Name</label>
                 <input type="text" name="name" id="name" placeholder="Name"
@@ -34,6 +35,10 @@
                 <label for="password_confirmation" class="sr-only">Confirm Password</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm password"
                 class="bg-gray-100 border-solid border border-black border-opacity-40 w-full p-1 rounded-sm dark:bg-transparent dark:border-white" value="">
+            </div>
+
+            <div>
+                <button type="submit" class="bg-hacker-orange text-white py-2 rounded-sm w-full dark:bg-dark-gh-btn">Sign up</button>
             </div>
         </form>
     </div>
