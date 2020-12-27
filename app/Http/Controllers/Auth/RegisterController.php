@@ -18,12 +18,22 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => 'required|min:2|max:26',
             'username' => 'required|max:20',
             'email' => 'required|email|max:255',
-            'password' => 'required|confirmed'
-        ]);
+            'password' => 'required|confirmed',
+        ];
+
+        $customMessages = [
+            'name.required' => 'Enter your :attribute',
+            'username.required' => 'Enter a :attribute',
+            'email.required' => 'Enter your :attribute',
+            'password.required' => 'Enter a :attribute',
+            'confirmed' => 'The passwords do not match.',
+        ];
+
+        $this->validate($request, $rules, $customMessages);
 
         User::create([
             'name' => $request->name,
