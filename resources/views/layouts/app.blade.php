@@ -22,12 +22,23 @@
         <h1 class="font-mono font-bold order-first w-full sm:order-none sm:w-auto sm:text-xl dark:text-white">Hacker News</h1>
 
         <ul class="flex items-center">
-            <li>
-                <a href="" class="navbar-link dark:text-white">Login</a> {{-- Login / Username --}}
-            </li>
-            <li>
-                <a href="{{ route('register') }}" class="navbar-link dark:text-white">Register</a> {{-- Register / Logout --}}
-            </li>
+            @guest
+                <li>
+                    <a href="" class="navbar-link dark:text-white">Login</a>
+                </li>
+                <li>
+                    <a href="{{ route('register') }}" class="navbar-link dark:text-white">Register</a>
+                </li>
+            @endguest
+
+            @auth
+                <li>
+                    <a href="" class="navbar-link dark:text-white">UsernameHERE</a>
+                </li>
+                <li>
+                    <a href="" class="navbar-link dark:text-white">Logout</a>
+                </li>
+            @endauth
         </ul>
     </nav>
     @yield('content')
