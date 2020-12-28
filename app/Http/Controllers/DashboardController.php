@@ -8,6 +8,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        dd(auth()->user()); // If user object is displayed we are logged in
+
         return view('dashboard');
     }
 }

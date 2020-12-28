@@ -42,6 +42,13 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password), // Hash facade 
         ]);
 
+        // Auth returns user object when signed in, null otherwise.
+        // Attempt takes an array of key & value pairs as argument.
+        // Attempt array is used to find user in DB. User is retrieved by matching email, then compares PW in DB with one passed to method.
+        // Attempt hashes passed PW for you, if hash match one in DB the authenticated session is initialized.
+        // Only returns specified key & value pair from array. Easier than to define array like in User::Create.
+        auth()->attempt($request->only('email', 'password'));
+
         return redirect()->route('dashboard');
     }
 }
