@@ -41,4 +41,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class); // Laravel automagically connects user_id from posts table with id from users table, could be specified otherwise. 
+    }
 }

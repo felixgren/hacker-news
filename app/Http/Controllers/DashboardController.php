@@ -13,6 +13,7 @@ class DashboardController extends Controller
 
     public function index()
     {
+        dd(auth()->user()->posts[0]->body); // Returns collection
         return view('dashboard');
     }
 }
