@@ -23,7 +23,7 @@ Route::get('/home', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // Using name to reference route allows us to change location of dashboard and still work
 
-Route::get('/logout', [LogoutController::class, 'store'])->name('logout');
+Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']); // Name is inherited

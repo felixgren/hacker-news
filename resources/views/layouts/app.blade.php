@@ -39,7 +39,10 @@
                     <a href="" class="navbar-link dark:text-white">UsernameHERE</a>
                 </li>
                 <li>
-                    <a href="{{ route('logout') }}" class="navbar-link dark:text-white">Logout</a>
+                    <form action="{{ route('logout') }}" method="post" class="inline navbar-link dark:text-white">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
                 </li>
             @endauth
         </ul>
