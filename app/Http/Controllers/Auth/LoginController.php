@@ -39,8 +39,9 @@ class LoginController extends Controller
         // Attempt array is used to find user in DB. User is retrieved by matching email, then compares PW in DB with one passed to method.
         // Attempt hashes passed PW for you, if hash match one in DB the authenticated session is initialized.
         $credentials = $request->only('email', 'password');
+        $remember = $request->remember;
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
             return redirect()->route('dashboard');

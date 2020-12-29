@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     public function __construct() // Construct method is called on each created object
     {
-        $this->middleware(['guest']);
+        $this->middleware(['guest']); // Redirect to home if not guest
     }
 
     // Same thing as including in route closure directly but using controller methods provide better structure, maintainability and extensibility.

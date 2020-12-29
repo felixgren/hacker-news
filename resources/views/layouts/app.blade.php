@@ -36,7 +36,7 @@
 
             @auth
                 <li>
-                    <a href="" class="navbar-link dark:text-white">UsernameHERE</a>
+                    <a href="" class="navbar-link dark:text-white">{{ auth()->user()->name }}</a>
                 </li>
                 <li>
                     <form action="{{ route('logout') }}" method="post" class="inline navbar-link dark:text-white">

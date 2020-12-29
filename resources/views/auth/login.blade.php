@@ -31,6 +31,13 @@
                 @enderror
             </div>
 
+            <div class="my-4">
+                <div class="flex items-center">
+                    <input type="checkbox" name="remember" id="remember" class="mr-2">
+                    <label for="remember" class="text-sm select-none">Remember me</label>
+                </div>
+            </div>
+
             @if (session()->has('status'))
                 <div class="text-red-500 -mt-2 mb-2 text-sm">
                     {{ session('status') }}
