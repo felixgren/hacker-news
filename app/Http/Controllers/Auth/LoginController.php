@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function __construct() // Construct method is called on each created object
+    {
+        $this->middleware(['guest']); // Redirect to home if not guest
+    }
+
     public function index() // Show form
     {
         return view('auth.login');

@@ -15,7 +15,7 @@
                 <a href="{{ route('home') }}" class="navbar-link dark:text-white">Home</a>
             </li>
             <li>
-                <a href="/dashboard" class="navbar-link dark:text-white">Dashboard</a>
+                <a href="{{ route('dashboard') }}" class="navbar-link dark:text-white">Dashboard</a>
             </li>
             <li>
                 <a href="/posts" class="navbar-link dark:text-white">Posts</a>

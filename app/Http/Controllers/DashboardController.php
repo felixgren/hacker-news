@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function __construct() // Construct method is called on each created object
+    {
+        $this->middleware(['auth']); // Redirect to login if not authenticated
+    }
+
     public function index()
     {
-        dd(auth()->user()); // If user object is displayed we are logged in
-
         return view('dashboard');
     }
 }
