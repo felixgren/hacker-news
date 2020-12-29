@@ -14,9 +14,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // Using name to reference route allows us to change location of dashboard and still work
+
+Route::get('/logout', [LogoutController::class, 'store'])->name('logout');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']); // Name is inherited

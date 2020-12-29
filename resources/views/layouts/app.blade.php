@@ -12,7 +12,10 @@
     <nav class="bg-hacker-orange dark:bg-dark-gh-banner flex flex-wrap p-2 mb-6 sm:flex-nowrap sm:justify-between">
         <ul class="flex items-center">
             <li>
-                <a href="/dashboard" class="navbar-link dark:text-white">Home</a>
+                <a href="{{ route('home') }}" class="navbar-link dark:text-white">Home</a>
+            </li>
+            <li>
+                <a href="/dashboard" class="navbar-link dark:text-white">Dashboard</a>
             </li>
             <li>
                 <a href="/posts" class="navbar-link dark:text-white">Posts</a>
@@ -36,7 +39,7 @@
                     <a href="" class="navbar-link dark:text-white">UsernameHERE</a>
                 </li>
                 <li>
-                    <a href="" class="navbar-link dark:text-white">Logout</a>
+                    <a href="{{ route('logout') }}" class="navbar-link dark:text-white">Logout</a>
                 </li>
             @endauth
         </ul>
