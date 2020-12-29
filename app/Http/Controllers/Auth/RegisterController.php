@@ -50,6 +50,8 @@ class RegisterController extends Controller
         // Only returns specified key & value pair from array. Easier than to define pairs manually like in User::Create.
         Auth::attempt($request->only('email', 'password'));
 
+        $request->session()->regenerate();
+
         return redirect()->route('dashboard');
     }
 }

@@ -12,7 +12,7 @@
     <nav class="bg-hacker-orange dark:bg-dark-gh-banner flex flex-wrap p-2 mb-6 sm:flex-nowrap sm:justify-between">
         <ul class="flex items-center">
             <li>
-                <a href="" class="navbar-link dark:text-white">Home</a>
+                <a href="/dashboard" class="navbar-link dark:text-white">Home</a>
             </li>
             <li>
                 <a href="/posts" class="navbar-link dark:text-white">Posts</a>
@@ -24,7 +24,7 @@
         <ul class="flex items-center">
             @guest
                 <li>
-                    <a href="" class="navbar-link dark:text-white">Login</a>
+                    <a href="{{ route('login') }}" class="navbar-link dark:text-white">Login</a>
                 </li>
                 <li>
                     <a href="{{ route('register') }}" class="navbar-link dark:text-white">Register</a>

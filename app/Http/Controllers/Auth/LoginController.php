@@ -35,10 +35,12 @@ class LoginController extends Controller
         // Attempt hashes passed PW for you, if hash match one in DB the authenticated session is initialized.
         $credentials = $request->only('email', 'password');
 
-        if (!Auth::attempt($credentials)) {
-            return back()->with('status', 'Incorrect login details :(');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->route('dashboard');
         }
 
-        return redirect()->route('dashboard');
+        return back()->with('status', 'Incorrect login details :(');
     }
 }
