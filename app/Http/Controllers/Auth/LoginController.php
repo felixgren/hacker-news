@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -27,6 +28,17 @@ class LoginController extends Controller
 
         $this->validate($request, $rules, $customMessages);
 
-        dd('YEEE');
+        // Only returns specified key & value pair from array. Easier than to define pairs manually.
+        // Auth returns user object when signed in, null otherwise.
+        // Attempt takes an array of key & value pairs as argument.
+        // Attempt array is used to find user in DB. User is retrieved by matching email, then compares PW in DB with one passed to method.
+        // Attempt hashes passed PW for you, if hash match one in DB the authenticated session is initialized.
+        $credentials = $request->only('email', 'password');
+
+        if (!Auth::attempt($credentials)) {
+            return back()->with('status', 'Incorrect login details :(');
+        }
+
+        return redirect()->route('dashboard');
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex justify-center">
     <div class="w-10/12 bg-white p-3 sm:p-6 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-20">
-        <h2 class="">Register</h2>
+        <h2 class="">Log in</h2>
 
         <form action="{{ route('login') }}" method="post">
             @csrf
@@ -30,6 +30,12 @@
                 </div>
                 @enderror
             </div>
+
+            @if (session()->has('status'))
+                <div class="text-red-500 -mt-2 mb-2 text-sm">
+                    {{ session('status') }}
+                </div>
+            @endif
 
             <div>
                 <button type="submit" class="bg-hacker-orange text-white py-2 rounded-sm w-full dark:bg-dark-gh-btn">Login</button>
