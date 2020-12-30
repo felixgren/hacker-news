@@ -36,8 +36,13 @@
             <p> We have {{$count}} posts!</p>
                 @foreach ($posts as $post)
                 <div class="bg-gray-200 my-2">
-                    <a href="" class="font-bold">{{ auth()->user()->name }}</a>
-                    <p class="inline">says...</p>
+                    <div class="flex justify-between">
+                        <div class="">
+                            <a href="" class="font-bold">{{ $post->user->name }}</a>
+                            <span>says...</span>
+                        </div>
+                        <span class="text-xs">{{ $post->created_at->diffForHumans()}}</span>
+                    </div>
 
                     <p>{{ $post->body}}</p>
                 </div>

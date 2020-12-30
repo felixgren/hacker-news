@@ -17,4 +17,11 @@ class Post extends Model
     protected $fillable = [
         'body'
     ];
+
+    // We want to be able to access user information when iterating our posts
+    // We can use belongsTo method to define user in post model.
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
