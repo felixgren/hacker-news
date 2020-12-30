@@ -31,6 +31,21 @@
         @endif
 
         </form>
+
+        @if ($count = $posts->count()) 
+            <p> We have {{$count}} posts!</p>
+                @foreach ($posts as $post)
+                <div class="bg-gray-200 my-2">
+                    <a href="" class="font-bold">{{ auth()->user()->name }}</a>
+                    <p class="inline">says...</p>
+
+                    <p>{{ $post->body}}</p>
+                </div>
+                @endforeach
+        @else
+        <p>nope no posts up in here</p>
+        @endif
+        
     </div>
 </div>
 @endsection
