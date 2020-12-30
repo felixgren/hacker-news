@@ -24,6 +24,12 @@
                 <button type="submit" class="bg-hacker-orange text-white py-1 mt-1 rounded-sm w-1/4 dark:bg-dark-gh-btn">Post</button>
             </div>
 
+            @if (session()->has('body'))
+            <div class="text-red-500 my text-lg">
+                {{ session('body') }}
+            </div>
+        @endif
+
         </form>
     </div>
 </div>
