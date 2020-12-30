@@ -41,12 +41,14 @@
                             <a href="" class="font-bold">{{ $post->user->name }}</a>
                             <span>says...</span>
                         </div>
-                        <span class="text-xs">{{ $post->created_at->diffForHumans()}}</span>
+                        <span class="text-xs">{{ $post->created_at->diffForHumans()}}</span> {{-- Carbon PHP API is used for DateTime --}}
                     </div>
 
                     <p>{{ $post->body}}</p>
                 </div>
                 @endforeach
+
+                {{ $posts->links() }} {{-- Included tailwind view --}}
         @else
         <p>nope no posts up in here</p>
         @endif
