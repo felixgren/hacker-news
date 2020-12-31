@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\NewYear;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
@@ -17,3 +18,7 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('2020', function () {
+    $this->comment(NewYear::quote());
+})->purpose('Happiness for the year to come');
