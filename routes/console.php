@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Foundation\NewYear;
+use App\Console\NewYear;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
