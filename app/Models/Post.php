@@ -28,6 +28,8 @@ class Post extends Model
 
     public function likes()
     {
-        return $this->hasMany(Like::class); // Many to many relationship also possible.
+        // Create relationship between Like & Post models. Connects & makes accessible
+        // Many to many relationship would also be possible. 
+        return $this->hasMany(Like::class);
     }
 }
