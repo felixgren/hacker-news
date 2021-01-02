@@ -15,7 +15,7 @@ class NewYear
     {
         return Collection::make([
             'HAPPY NEW YEAR!',
-            'Way this year treat you with more laravel',
+            'May this year treat you with more laravel',
             'happi happi happi new year!'
         ])->random();
     }
