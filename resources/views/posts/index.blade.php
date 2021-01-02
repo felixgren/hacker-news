@@ -55,6 +55,8 @@
                             @csrf
                             <button type="submit" class="text-blue-500 text-sm">Unlike</button>
                         </form>
+
+                        <span class="text-sm">{{ $post->likes->count() }}</span>
                     </div>
                 </div>
                 @endforeach
