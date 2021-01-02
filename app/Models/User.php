@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Like;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -45,5 +46,10 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class); // Laravel automagically connects user_id from posts table with id from users table, could be specified otherwise. 
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class); // Connect user to likes.
     }
 }
