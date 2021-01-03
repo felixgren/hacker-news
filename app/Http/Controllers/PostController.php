@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::paginate(5); // Get 5 posts in LengthAwarePaginator as a collection
+        $posts = Post::with(['user', 'likes'])->orderByDesc('created_at')->paginate(15); // Get 5 posts in LengthAwarePaginator as a collection
         return view('posts.index', ['posts' => $posts]); // View with posts collection passed in
     }
 
