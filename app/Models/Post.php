@@ -19,6 +19,15 @@ class Post extends Model
         'body'
     ];
 
+    public function likedBy(User $user)
+    {
+        // It's possible to access likes relationship & model internally. 
+        // We retrieve the likes collection
+        // `Contains` method functions as truth test, checks if user id exists within likes collection.
+        // Returns true if match is found, false if not.
+        return $this->likes->contains('user_id', $user->id);
+    }
+
     // We want to be able to access user information when iterating our posts
     // We can use belongsTo method to define user in post model.
     public function user()
