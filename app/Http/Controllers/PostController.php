@@ -21,4 +21,11 @@ class PostController extends Controller
 
         return back()->with('body', $request->body); // Return with post content
     }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return back();
+    }
 }

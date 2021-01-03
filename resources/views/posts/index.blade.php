@@ -46,7 +46,18 @@
 
                     <p>{{ $post->body}}</p>
 
-                    <div class="flex items-center">
+                    <div class="flex flex-wrap items-center">
+                    @auth
+                        @if ($post->ownedBy(auth()->user()))
+                        <div class="w-full">
+                            <form action="{{ route('posts.destroy', $post) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-blue-500 text-sm">Delete</button>
+                            </form>
+                        </div>
+                        @endif
+
                         @if (!$post->LikedBy(auth()->user()))
                         <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
                             @csrf
@@ -59,6 +70,7 @@
                             <button type="submit" class="text-blue-500 text-sm">Unlike</button>
                         </form>
                         @endif
+                    @endauth
 
                         <span class="text-sm">{{ $post->likes->count() }}</span>
                     </div>

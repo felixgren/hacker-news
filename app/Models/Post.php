@@ -28,10 +28,16 @@ class Post extends Model
         return $this->likes->contains('user_id', $user->id);
     }
 
-    // We want to be able to access user information when iterating our posts
-    // We can use belongsTo method to define user in post model.
+    public function ownedBy(User $user)
+    {
+        // Compare defined post model user to current post ($this)
+        return $user->id === intval($this->user_id);
+    }
+
     public function user()
     {
+        // We want to be able to access user information when iterating our posts
+        // We can use belongsTo method to define user in post model.
         return $this->belongsTo(User::class);
     }
 
