@@ -24,4 +24,9 @@ class PostLikeController extends Controller
 
         return back();
     }
+
+    public function destroy(Post $post, Request $request)
+    {
+        dd('OH HEY');
+    }
 }
