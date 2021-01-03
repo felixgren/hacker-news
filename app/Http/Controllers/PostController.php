@@ -24,6 +24,10 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        if (!$post->ownedBy(auth()->user())) {
+            abort(403, 'Very rude');
+        }
+
         $post->delete();
 
         return back();
