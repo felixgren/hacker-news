@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class PostLikeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
     public function store(Post $post, Request $request) // We want to get post_id in here so we can like it
     {
         if ($post->likedBy($request->user())) {
