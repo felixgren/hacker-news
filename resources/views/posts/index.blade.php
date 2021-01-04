@@ -48,7 +48,7 @@
 
                     <div class="flex flex-wrap items-center">
                     @auth
-                        @if ($post->ownedBy(auth()->user()))
+                        @can('delete', $post)
                         <div class="w-full">
                             <form action="{{ route('posts.destroy', $post) }}" method="post">
                                 @csrf
@@ -56,7 +56,7 @@
                                 <button type="submit" class="text-blue-500 text-sm">Delete</button>
                             </form>
                         </div>
-                        @endif
+                        @endcan
 
                         @if (!$post->LikedBy(auth()->user()))
                         <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">

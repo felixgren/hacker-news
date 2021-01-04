@@ -28,12 +28,6 @@ class Post extends Model
         return $this->likes->contains('user_id', $user->id);
     }
 
-    public function ownedBy(User $user)
-    {
-        // Compare defined post model user to current post ($this)
-        return $user->id === intval($this->user_id);
-    }
-
     public function user()
     {
         // We want to be able to access user information when iterating our posts
