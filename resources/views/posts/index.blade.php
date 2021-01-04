@@ -38,7 +38,7 @@
                 <div class="bg-gray-200 my-2">
                     <div class="flex justify-between">
                         <div class="">
-                            <a href="" class="font-bold">{{ $post->user->name }}</a>
+                            <a href="{{ route('users.posts', $post->user) }}" class="font-bold">{{ $post->user->name }}</a>
                             <span>says...</span>
                         </div>
                         <span class="text-xs">{{ $post->created_at->diffForHumans()}}</span> {{-- Carbon PHP API is used for DateTime --}}
