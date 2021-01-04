@@ -1,6 +1,6 @@
 @props(['post' => $post])
 
-<div class="bg-gray-200 my-2">
+<div class="bg-gray-200 my-2 p-1 dark:bg-transparent dark:border-solid border border-white border-opacity-40">
     <div class="flex justify-between">
         <div class="">
             <a href="{{ route('users.posts', $post->user) }}" class="font-bold">{{ $post->user->name }}</a>
