@@ -11,9 +11,11 @@ class UserPostController extends Controller
     {
         // Grab user
         // Show list of their posts and info
-        // dd($user);
+
+        $posts = $user->posts()->with(['user', 'likes'])->paginate(20);
         return view('users.posts.index', [
             'user' => $user,
+            'posts' => $posts,
         ]);
     }
 }
