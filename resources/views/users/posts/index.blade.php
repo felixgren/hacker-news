@@ -6,8 +6,9 @@
         class="w-10/12 bg-white p-3 sm:p-6 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-40">
         {{ $user->name }}'s posts very fancy yes yes
 
-        @if ($count = $posts->count()) 
-            <p> We have {{$count}} posts!</p>
+        @if ($posts->count()) 
+            <p> {{ $user->name }} has {{ $posts->total() }} {{ Str::plural('post', $posts->total())}} 
+                and {{ $user->receivedLikes->count() }} karma</p>
                 @foreach ($posts as $post)
                     <x-post :post="$post" />
                 @endforeach

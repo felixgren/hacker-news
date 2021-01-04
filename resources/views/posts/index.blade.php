@@ -32,8 +32,8 @@
 
         </form>
 
-        @if ($count = $posts->count()) 
-            <p> We have {{$count}} posts!</p>
+        @if ($posts->count()) 
+            <p> We have a total of {{$posts->total()}} posts!</p>
                 @foreach ($posts as $post)
                     <x-post :post="$post" />
                 @endforeach
