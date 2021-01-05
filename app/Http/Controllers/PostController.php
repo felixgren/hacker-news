@@ -35,4 +35,24 @@ class PostController extends Controller
 
         return back();
     }
+
+    public function edit(Post $post, Request $request)
+    {
+        // Auth against request & input
+        // Get post
+        // Edit with data from request.
+        $request->body = "hello";
+        $post->body = $request->body;
+
+        $post->save();
+
+        // $this->authorize('delete', $post);
+
+        // dd($post->body);
+        // $post->body()
+        // update([$post->body => 'HELLO']);
+        // $post->delete();
+
+        return back();
+    }
 }

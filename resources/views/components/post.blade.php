@@ -23,6 +23,16 @@
         </div>
         @endcan
 
+        @can('delete', $post)
+        <div class="w-full">
+            <form action="{{ route('posts.edit', $post) }}" method="post">
+                @csrf
+                @method('PATCH')
+                <button type="submit" class="text-blue-500 text-sm">Edit</button>
+            </form>
+        </div>
+        @endcan
+
         @if (!$post->LikedBy(auth()->user()))
         <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
             @csrf
