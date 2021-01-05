@@ -27,31 +27,23 @@ class PostController extends Controller
         return back()->with('body', $request->body); // Return with post content
     }
 
-    public function destroy(Post $post)
-    {
-        $this->authorize('delete', $post);
-
-        $post->delete();
-
-        return back();
-    }
-
     public function edit(Post $post, Request $request)
     {
-        // Auth against request & input
-        // Get post
-        // Edit with data from request.
-        $request->body = "hello";
+        $this->authorize('update', $post); // Protect backend
+        $this->validate($request, ['body' => 'required']); // Require text
+
         $post->body = $request->body;
 
         $post->save();
 
-        // $this->authorize('delete', $post);
+        return back();
+    }
 
-        // dd($post->body);
-        // $post->body()
-        // update([$post->body => 'HELLO']);
-        // $post->delete();
+    public function destroy(Post $post)
+    {
+        $this->authorize('update', $post);
+
+        $post->delete();
 
         return back();
     }

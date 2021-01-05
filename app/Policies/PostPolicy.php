@@ -10,7 +10,7 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
-    public function delete(User $user, Post $post)
+    public function update(User $user, Post $post)
     {
         // Compare defined post model user to current post
         return $user->id === intval($post->user_id);
