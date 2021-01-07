@@ -25,6 +25,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // Using name to reference route allows us to change location of dashboard and still work
+Route::put('/dashboard', [DashboardController::class, 'update']);
 
 Route::get('/users/{user:username}/posts', [UserPostController::class, 'index'])->name('users.posts');
 

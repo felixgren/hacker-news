@@ -9,7 +9,7 @@
         <span class="text-xs">{{ $post->created_at->diffForHumans()}}</span> {{-- Carbon PHP API is used for DateTime --}}
     </div>
 
-    <p>{{ $post->body}}</p>
+    <a href="{{ route('posts.show', $post) }}">{{ $post->body}}</a>
 
     <div class="flex flex-wrap items-center">
     @auth
