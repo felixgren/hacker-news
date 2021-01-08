@@ -4,10 +4,61 @@
 <div class="flex justify-center">
     <div
         class="w-10/12 bg-white p-3 sm:p-6 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-40">
-        <h1 class="text-lg underline"><b>{{ $user->name }}</b> posts</h1>
+        <h1 class="text-lg"><b>Welcome to your dashboard {{ $user->name }}</b></h1>
+
+        <h2>Settings</h2>
+
+        <div class="my-4">
+            <label for="name" class="sr-only">Name</label>
+            <input type="text" name="name" id="name" value="{{ old('name') ? old('name') : $user->name }}"
+            class="bg-gray-100 border-solid border border-black border-opacity-40 w-full p-1 rounded-sm dark:bg-transparent dark:border-white @error('name') border-red-500 border-opacity-100  @enderror" value="{{ old('name') }}">
+
+            @error('name') 
+            <div class="text-red-500 mt-1 text-sm">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+
+        <div class="my-4">
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" name="username" id="username" placeholder="Username"
+            class="bg-gray-100 border-solid border border-black border-opacity-40 w-full p-1 rounded-sm dark:bg-transparent dark:border-white @error('name') border-red-500 border-opacity-100  @enderror" value="{{ old('username') }}">
+
+            @error('username') 
+            <div class="text-red-500 mt-1 text-sm">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+
+        <div class="my-4">
+            <label for="email" class="sr-only">Email</label>
+            <input type="text" name="email" id="email" placeholder="Email"
+            class="bg-gray-100 border-solid border border-black border-opacity-40 w-full p-1 rounded-sm dark:bg-transparent dark:border-white @error('name') border-red-500 border-opacity-100  @enderror" value="{{ old('email') }}">
+
+            @error('email') 
+            <div class="text-red-500 mt-1 text-sm">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+
+        <div class="my-4">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" id="password" placeholder="Choose password"
+            class="bg-gray-100 border-solid border border-black border-opacity-40 w-full p-1 rounded-sm dark:bg-transparent dark:border-white @error('name') border-red-500 border-opacity-100  @enderror" value="">
+
+            @error('password') 
+            <div class="text-red-500 mt-1 text-sm">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+
 
         @if ($posts->count()) 
-            <p> {{ $user->name }} has {{ $posts->total() }} {{ Str::plural('post', $posts->total())}} 
+            <p> You have {{ $posts->total() }} {{ Str::plural('post', $posts->total())}} 
                 and {{ $user->receivedLikes->count() }} karma</p>
                 @foreach ($posts as $post)
                     <x-post :post="$post" />
@@ -15,7 +66,7 @@
 
                 {{ $posts->links() }} {{-- Included tailwind view --}}
         @else
-        <p>{{ $user->name }} hasn't posted anything yet.</p>
+        <p>You haven't posted anything yet.</p>
         @endif
     </div>
 </div>

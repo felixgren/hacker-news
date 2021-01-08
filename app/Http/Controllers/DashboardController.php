@@ -15,8 +15,12 @@ class DashboardController extends Controller
 
     public function index(User $user)
     {
+        /** @var \App\Models\User|null $user */
         $user = Auth::user();
-        $posts = $user->posts()->with(['user', 'likes'])->paginate(20);
+        $posts = $user->posts()->with(['user', 'likes'])->orderByDesc('created_at')->paginate(20);
+
+        // $posts = Auth::user()->posts()->with(['user', 'likes'])->orderByDesc('created_at')->paginate(15);
+
         return view('dashboard', [
             'user' => $user,
             'posts' => $posts,
