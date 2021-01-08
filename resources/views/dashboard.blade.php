@@ -10,6 +10,7 @@
 
         <form action="" method="post">
         @csrf
+        @method('PUT')
             <div class="my-4">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" value="{{ old('username') ? old('username') : $user->username }}"
@@ -34,6 +35,21 @@
                 @enderror
             </div>
 
+            <div class="my-4">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" class="bg-gray-100 border-solid border border-black border-opacity-40 w-full p-1 rounded-sm dark:bg-transparent dark:border-white @error('description') border-red-500 border-opacity-100  @enderror">{{ old('description') ? old('description') : $user->description }}</textarea>
+
+                @error('description') 
+                <div class="text-red-500 mt-1 text-sm">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div>
+                <button type="submit" class="bg-hacker-orange text-white py-2 rounded-sm w-full dark:bg-dark-gh-btn">Update settings</button>
+            </div>
+
             {{-- <div class="my-4">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" placeholder="Choose password"
@@ -48,9 +64,6 @@
                 <label for="password_confirmation" class="sr-only">Confirm Password</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm password"
                 class="bg-gray-100 border-solid border border-black border-opacity-40 w-full p-1 rounded-sm dark:bg-transparent dark:border-white @error('password') border-red-500 border-opacity-100  @enderror" value="">
-            </div>
-            <div>
-                <button type="submit" class="bg-hacker-orange text-white py-2 rounded-sm w-full dark:bg-dark-gh-btn">Update settings</button>
             </div> --}}
         </form>
 
