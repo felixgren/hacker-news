@@ -26,8 +26,8 @@ class RegisterController extends Controller
     {
         $rules = [
             'name' => 'required|min:2|max:26',
-            'username' => 'required|max:20',
-            'email' => 'required|email|max:255',
+            'username' => 'required|max:20|unique:users',
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed',
         ];
 

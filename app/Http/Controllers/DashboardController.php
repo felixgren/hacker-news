@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserUpdateRequest;
 
 class DashboardController extends Controller
 {
@@ -27,9 +28,12 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function update(User $user)
+    public function update(UserUpdateRequest $user)
     {
-        $user = Auth::user();
-        dd($user);
+        // $user->validated();
+        // return back();
+        // dd('update');
+        // $user = Auth::user();
+        // dd($user);
     }
 }
