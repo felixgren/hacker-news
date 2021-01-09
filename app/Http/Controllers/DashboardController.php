@@ -29,6 +29,7 @@ class DashboardController extends Controller
 
     public function update(User $user)
     {
+        $user = Auth::user();
         dd($user);
     }
 }
