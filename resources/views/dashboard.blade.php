@@ -9,7 +9,7 @@
 
         <h2>Update your settings</h2>
 
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
             <div class="my-4">
@@ -45,6 +45,11 @@
                     {{ $message }}
                 </div>
                 @enderror
+            </div>
+
+            <div class="my-4">
+                <label for="description">Avatar image</label>
+                <input type="file" name="image" id="image">
             </div>
 
             <div>

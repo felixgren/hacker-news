@@ -41,6 +41,10 @@ class DashboardController extends Controller
 
         $user->save();
 
+        if ($request->file('image')) {
+            $request->file('image')->move(storage_path() . '/uploads', $fileId = uniqid(true));
+        }
+
         return back()->with('status', 'Profile successfully updated!');
     }
 }
