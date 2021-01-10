@@ -28,12 +28,30 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function update(UserUpdateRequest $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        // $user->validated();
-        // return back();
-        // dd('update');
+
+        // Any additional authorization required here?
+
+        // $user->update([
+        //     'username' => $request->username,
+        //     'email' => $request->email,
+        //     'description' => $request->description,
+        // ]);
+
         // $user = Auth::user();
-        // dd($user);
+
+        // dd($user->username);
+
+
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->description = $request->description;
+
+        $user->save();
+
+        return back();
     }
 }
