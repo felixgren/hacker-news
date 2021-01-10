@@ -4,7 +4,8 @@
 <div class="flex justify-center">
     <div
         class="w-10/12 bg-white p-3 sm:p-6 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-40">
-        <h1 class="text-lg"><b>Welcome to your dashboard {{ $user->name }}</b></h1>
+        <h1 class="text-lg"><b>Welcome to your dashboard {{ $user->username }}</b></h1>
+        <h2 class="text-md font-opacity-50">Your name: {{$user->name}}</h2>
 
         <h2>Update your settings</h2>
 
@@ -49,6 +50,12 @@
             <div>
                 <button type="submit" class="bg-hacker-orange text-white py-2 rounded-sm w-full dark:bg-dark-gh-btn">Update settings</button>
             </div>
+
+            @if (session('status'))
+                <div class="text-red-500 my text-lg">
+                    {{ session('status') }}
+                </div>
+            @endif
 
             {{-- <div class="my-4">
                 <label for="password">Password</label>

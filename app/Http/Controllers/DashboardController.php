@@ -33,17 +33,6 @@ class DashboardController extends Controller
 
         // Any additional authorization required here?
 
-        // $user->update([
-        //     'username' => $request->username,
-        //     'email' => $request->email,
-        //     'description' => $request->description,
-        // ]);
-
-        // $user = Auth::user();
-
-        // dd($user->username);
-
-
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
         $user->username = $request->username;
@@ -52,6 +41,6 @@ class DashboardController extends Controller
 
         $user->save();
 
-        return back();
+        return back()->with('status', 'Profile successfully updated!');
     }
 }
