@@ -23,10 +23,15 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
-        // $user = Auth::user();
-
         return [
             'title' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Your post needs a :attribute!',
         ];
     }
 }

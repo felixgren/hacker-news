@@ -52,7 +52,7 @@
             </div>
 
             <div class="my-4">
-                <label for="description">Avatar image</label>
+                <label for="image">Avatar image</label>
                 <input type="file" name="image" id="image">
             </div>
 

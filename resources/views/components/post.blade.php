@@ -10,9 +10,9 @@
     </div>
 
     <div>
-        <a href="{{ route('posts.show', $post) }}"><b>title: {{ $post->title}}</b></a>
+        <a href="{{ route('posts.show', $post) }}"><b>{{ $post->title}}</b></a>
         <p>{{ $post->body }}</p>
-        <a href="{{ $post->link }}">{{ $post->link }}</a>
+        <a href="{{ $post->link }}" class="text-blue-400 hover:underline">{{ $post->link }}</a>
     </div>
 
     <div class="flex flex-wrap items-center">
@@ -22,7 +22,7 @@
             <form action="{{ route('posts.destroy', $post) }}" method="post">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="text-blue-500 text-sm">Delete</button>
+                <button type="submit" class="text-red-500 text-sm">Delete</button>
             </form>
         </div>
         @endcan

@@ -9,27 +9,45 @@
             <form action="{{ route('posts') }}" method="post" class="mt-2">
                 @csrf
                 <div>
-                    <label for="title" class="sr-only">Post title</label>
-                    <textarea name="title" id="title" cols="30" rows="2" class="bg-transparent
-                    border-2 w-full p-2 rounded-sm @error('title') border-red-500 @enderror"
-                    placeholder="Text here"></textarea>
+                    <div>
+                        <label for="title" class="sr-only">Post title</label>
+                        <input type="text" name="title" id="title" class="bg-transparent
+                        border-2 w-full p-2 rounded-sm @error('title') border-red-500 @enderror"
+                        placeholder="Title"></textarea>
 
-                    <label for="body" class="sr-only">Post body</label>
-                    <textarea name="body" id="body" cols="30" rows="2" class="bg-transparent
-                    border-2 w-full p-2 rounded-sm @error('body') border-red-500 @enderror"
-                    placeholder="Text here"></textarea>
-
-                    <label for="link" class="sr-only">Post link</label>
-                    <textarea name="link" id="link" cols="30" rows="2" class="bg-transparent
-                    border-2 w-full p-2 rounded-sm @error('link') border-red-500 @enderror"
-                    placeholder="Text here"></textarea>
-
-                    @error('body') 
+                        @error('title') 
                         <div class="text-red-500 mt-1 text-sm">
                             {{ $message }}
                         </div>
-                    @enderror
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="link" class="sr-only">Post link</label>
+                        <input type="url" name="link" id="link" class="bg-transparent
+                        border-2 w-full p-2 rounded-sm @error('link') border-red-500 @enderror"
+                        value="{{ old('link') }}" placeholder="Link (optional)"></textarea>
+
+                        @error('link') 
+                        <div class="text-red-500 mt-1 text-sm">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="body" class="sr-only">Post body</label>
+                        <textarea name="body" id="body" class="bg-transparent
+                        border-2 w-full p-2 rounded-sm @error('body') border-red-500 @enderror" placeholder="Content">{{ old('body') }}</textarea>
+
+                        @error('body') 
+                        <div class="text-red-500 mt-1 text-sm">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
                 </div>
+                
 
                 <div>
                     <button type="submit" class="bg-hacker-orange text-white py-1 mt-1 rounded-sm w-1/4 dark:bg-dark-gh-btn">Post</button>
