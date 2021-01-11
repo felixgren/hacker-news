@@ -2,14 +2,18 @@
 
 <div class="bg-gray-200 my-2 p-1 dark:bg-transparent dark:border-solid border border-white border-opacity-40">
     <div class="flex justify-between">
-        <div class="">
+        <div class="text-xs">
             <a href="{{ route('users.posts', $post->user) }}" class="font-bold">{{ $post->user->name }}</a>
             <span>says...</span>
         </div>
         <span class="text-xs">{{ $post->created_at->diffForHumans()}}</span> {{-- Carbon PHP API is used for DateTime --}}
     </div>
 
-    <a href="{{ route('posts.show', $post) }}">{{ $post->body}}</a>
+    <div>
+        <a href="{{ route('posts.show', $post) }}"><b>title: {{ $post->title}}</b></a>
+        <p>{{ $post->body }}</p>
+        <a href="{{ $post->link }}">{{ $post->link }}</a>
+    </div>
 
     <div class="flex flex-wrap items-center">
     @auth

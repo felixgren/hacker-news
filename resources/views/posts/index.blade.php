@@ -9,9 +9,19 @@
             <form action="{{ route('posts') }}" method="post" class="mt-2">
                 @csrf
                 <div>
-                    <label for="body" class="sr-only">Post comment</label>
+                    <label for="title" class="sr-only">Post title</label>
+                    <textarea name="title" id="title" cols="30" rows="2" class="bg-transparent
+                    border-2 w-full p-2 rounded-sm @error('title') border-red-500 @enderror"
+                    placeholder="Text here"></textarea>
+
+                    <label for="body" class="sr-only">Post body</label>
                     <textarea name="body" id="body" cols="30" rows="2" class="bg-transparent
                     border-2 w-full p-2 rounded-sm @error('body') border-red-500 @enderror"
+                    placeholder="Text here"></textarea>
+
+                    <label for="link" class="sr-only">Post link</label>
+                    <textarea name="link" id="link" cols="30" rows="2" class="bg-transparent
+                    border-2 w-full p-2 rounded-sm @error('link') border-red-500 @enderror"
                     placeholder="Text here"></textarea>
 
                     @error('body') 

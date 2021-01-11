@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -25,11 +26,19 @@ class PostController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $this->validate($request, ['body' => 'required']);
+        // $this->validate($request, ['body' => 'required']);
 
-        $request->user()->posts()->create($request->only('body')); // Create post
+        // dd($request->only('body'));
+
+        // $request->user()->posts()->create($request->only('body')); // Create post
+
+        $request->user()->posts()->create([
+            'title' => $request->title,
+            'link' => $request->link,
+            'body' => $request->body,
+        ]);
 
         return back()->with('body', $request->body); // Return with post content
     }
