@@ -7,6 +7,10 @@
         <h1 class="text-lg"><b>Welcome to your dashboard {{ $user->username }}</b></h1>
         <h2 class="text-md font-opacity-50">Your name: {{$user->name}}</h2>
 
+        <div>
+            <img src="{{ $user->getAvatar() }}" alt="Your avatar">
+        </div>
+
         <h2>Update your settings</h2>
 
         <form action="" method="post" enctype="multipart/form-data">

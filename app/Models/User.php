@@ -57,4 +57,13 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Like::class, Post::class);
     }
+
+    public function getAvatar()
+    {
+        if (!$this->avatar_filename) {
+            return config('hackernews.buckets.images') . '/avatar/default.png';
+        }
+
+        return config('hackernews.buckets.images') . '/avatar/' . $this->avatar_filename;
+    }
 }
