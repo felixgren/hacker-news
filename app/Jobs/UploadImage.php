@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
@@ -40,6 +41,11 @@ class UploadImage implements ShouldQueue
     {
         $path = storage_path() . '/uploads/' . $this->fileId;
         $fileName = $this->fileId . '.png';
+
+        // Encode image to png and downscale/upscale to 184x184 pixels
+        Image::make($path)->encode('png')->fit(184, 184, function ($constraint) {
+            $constraint->upsize();
+        })->save();
 
         // When processed/uploaded to s3 cloud delete from temp storage
         if (Storage::disk('s3')->put('avatar/' . $fileName, fopen($path, 'r+'))) {
