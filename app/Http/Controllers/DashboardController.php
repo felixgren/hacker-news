@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserUpdateRequest;
+use App\Jobs\UploadImage;
 
 class DashboardController extends Controller
 {
@@ -43,6 +44,8 @@ class DashboardController extends Controller
 
         if ($request->file('image')) {
             $request->file('image')->move(storage_path() . '/uploads', $fileId = uniqid(true));
+
+            $this->dispatch(new UploadImage($user, $fileId));
         }
 
         return back()->with('status', 'Profile successfully updated!');
