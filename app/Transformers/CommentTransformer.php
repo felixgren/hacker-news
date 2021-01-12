@@ -11,13 +11,31 @@ use League\Fractal\TransformerAbstract;
 // Transformers can be either callbacks or classes, classes are recommended for reusability
 class CommentTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        'user', 'replies'
+    ];
+
     public function transform(Comment $comment)
     {
         return [
             'id' => $comment->id,
             'user_id' => $comment->user_id,
             'body' => $comment->body,
-            'body' => $comment->body,
+            // Carbon works everywhere
+            'created_at' => $comment->created_at->toDateTimeString(),
+            'created_at_human' => $comment->created_at->diffForHumans(),
         ];
+    }
+
+    // Connect to UserTransformer
+    public function includeUser(Comment $comment)
+    {
+        return $this->item($comment->user, new UserTransformer);
+    }
+
+    // Connect to replies function in Comment model
+    public function includeReplies(Comment $comment)
+    {
+        return $this->collection($comment->replies, new CommentTransformer);
     }
 }

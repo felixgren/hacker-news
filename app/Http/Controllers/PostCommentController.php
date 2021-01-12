@@ -10,9 +10,9 @@ class PostCommentController extends Controller
 {
     public function index(Post $post)
     {
-        // dd('EY BRO');
         return response()->json(
             fractal()->collection($post->comments()->latest()->get())
+                ->parseIncludes(['replies', 'user', 'replies.user'])
                 ->transformWith(new CommentTransformer)
                 ->toArray()
 
