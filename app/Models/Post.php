@@ -43,4 +43,11 @@ class Post extends Model
         // Many to many relationship would also be possible. 
         return $this->hasMany(Like::class);
     }
+
+    public function comments()
+    {
+        // Create relationship between Comment & Post models. Polymorphic relationship
+        // Only want to get parent comments (not replies)
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('reply_id');
+    }
 }
