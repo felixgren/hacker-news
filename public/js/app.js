@@ -1960,6 +1960,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1970,9 +1988,18 @@ __webpack_require__.r(__webpack_exports__);
   props: {},
   methods: {
     getComments: function getComments() {
+      var _this = this;
+
       this.$http.get('/posts/10/comments').then(function (response) {
         // response here
-        return console.log(response.json()); // this.comments = response.json().data;
+        // resolve(response);
+        // return console.log(response.json());
+        // this.comments = response.data;
+        // console.log(response.json().data);
+        _this.comments = response.data;
+        console.log(response.data.data[0].body);
+        console.log(response.data);
+        console.log(response.body.data[0].user.data['username']);
       });
     }
   },
@@ -19696,18 +19723,8 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("p", [
-      _vm._v("There are currently " + _vm._s(_vm.comments.length) + " comments")
-    ])
-  ])
-}
+var render = function () {}
 var staticRenderFns = []
-render._withStripped = true
 
 
 
