@@ -1,12 +1,14 @@
 <template>
-    <p>Comments</p>
+    <div>
+        <p>There are currently {{ comments.length }} comments</p>
+    </div>
 </template>
 
 <script>
 export default {
     data () {
         return{
-            comment: [] // Will store comments of instance
+            comments: [], // Will store comments of instance
         }
     },
     props: {
@@ -14,15 +16,23 @@ export default {
     },
     methods: {
         getComments() {
-            this.$http.get('/posts/10/comments').then(response => {
+            this.$http.get('/posts/10/comments').then((response) => {
                 // response here
-                this.test = (response.json());
+                return console.log(response.json());
+                // this.comments = response.json().data;
             });
         }
     },
 
-    ready() {
+    mounted() {
+        // await this.getComments();
+        // this.dataReady = true; 
         this.getComments();
     }
+    // mounted: function() {
+    //     this.$nextTick(function () {
+    //         this.getComments();
+    //     })
+    // }
 }
 </script>

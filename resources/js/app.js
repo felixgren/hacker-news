@@ -1,7 +1,7 @@
 require('./bootstrap');
 
 import Vue from 'vue'
-import axios from 'axios';
+import VueResource from 'vue-resource';
 
 // const api  = axios.create({
 //     baseURL: 'api.domain.com',
@@ -14,12 +14,13 @@ import axios from 'axios';
 
 
 window.Vue = require('vue').default;
+require('vue-resource');
 
 Vue.component('hello-world', require('./components/HelloWorld.vue').default);
 Vue.component('avatar-upload', require('./components/AvatarUpload.vue').default);
 Vue.component('post-comments', require('./components/PostComments.vue').default);
 
-// Vue.use(axios); can't use directly, easier to use vue resource
+Vue.use(VueResource);
 
 const app = new Vue({
     el: '#app',
