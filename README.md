@@ -9,9 +9,9 @@ Hacker News Project!
 ```
 git clone https://github.com/felixgren/hacker-news.git
 cd hacker-news
-cp .env.example .env
 composer install
 npm install
+cp .env.example .env
 php artisan key:generate
 php artisan serve
 ```
