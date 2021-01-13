@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  ready() {
-    console.log("Hello World, please do work.");
+  mounted() {
+    console.log("Hello World, the view is nice");
   },
 };
 </script>

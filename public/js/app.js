@@ -1915,8 +1915,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  ready: function ready() {
-    console.log("Hello World, please do work.");
+  mounted: function mounted() {
+    console.log("Hello World, the view is nice");
   }
 });
 
@@ -31763,15 +31763,20 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js")["default"];
-Vue.component('hello-world', __webpack_require__(/*! ./components/HelloWorld.vue */ "./resources/js/components/HelloWorld.vue")["default"]);
-var app = new Vue({
-  el: 'body'
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('hello-world', __webpack_require__(/*! ./components/HelloWorld.vue */ "./resources/js/components/HelloWorld.vue")["default"]);
+var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  el: '#app'
 });
 
 /***/ }),
