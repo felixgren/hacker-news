@@ -1858,21 +1858,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1886,28 +1871,17 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$http.get('/posts/10/comments').then(function (response) {
-        // response here
-        // resolve(response);
-        // return console.log(response.json());
-        // this.comments = response.data;
-        // console.log(response.json().data);
-        _this.comments = response.data;
-        console.log(response.data.data[0].body);
-        console.log(response.data);
-        console.log(response.body.data[0].user.data['username']);
+        console.log(response.json());
+        console.log(response.body);
+        _this.comments = response.body;
+        console.log(response.body.data[0].body); // console.log(response.data);
+        // console.log(response.body.data[0].user.data['username']);
       });
     }
   },
   mounted: function mounted() {
-    // await this.getComments();
-    // this.dataReady = true; 
     this.getComments();
-  } // mounted: function() {
-  //     this.$nextTick(function () {
-  //         this.getComments();
-  //     })
-  // }
-
+  }
 });
 
 /***/ }),
@@ -19645,11 +19619,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("p", [
-      _vm._v("There are currently " + _vm._s(_vm.comments.length) + " comments")
-    ])
-  ])
+  return _vm.comments.data
+    ? _c("div", [
+        _c("p", [
+          _vm._v(
+            "There are currently " +
+              _vm._s(_vm.comments.data.length) +
+              " comments"
+          )
+        ]),
+        _vm._v(" "),
+        _c("ul", [
+          _c("li", [_vm._v(_vm._s(_vm.comments.data[0].user.data.username))])
+        ])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

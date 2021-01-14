@@ -31,6 +31,7 @@
         @endcan
 
         <div id="app">
+            {{-- Pass in post id as prop --}}
             <post-comments post-id={{ $post->id }}></post-comments>
         </div>
         
