@@ -1,19 +1,19 @@
 <template>
     <div v-if="comments.data">
-        <p>There are currently {{ comments.data.length }} comments</p>
+        <p class="mb-8">There are currently {{ comments.data.length }} comments</p>
 
         <ul>
             <li v-for="comment in comments.data" :key="comment.data">
                 <div>
                     <!-- <p>{{ comment.data }}</p> -->
-                    <p>hello {{ comment.user.data.username }}</p>
+                    <p>{{ comment.user.data.username }} says</p>
                     <p>{{ comment.body}}</p>
-                    <img :src="comment.user.data.avatar" alt="">
+                    <img :src="comment.user.data.avatar" alt="" class="w-16">
                     <!-- <a href="/users/{{ comment.data.username }}">user and link</a> -->
                 </div>
             </li>
         </ul>
-        <p>{{ comments.data[0].user.data.username }}</p>
+        <!-- <p>{{ comments.data[0].user.data.username }}</p> -->
     </div>
 </template>
 

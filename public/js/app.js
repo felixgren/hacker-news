@@ -19603,7 +19603,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("It's hacking time")])])
+    return _c("div", [_c("p", [_vm._v("It's hacking time (Vue loaded)")])])
   }
 ]
 render._withStripped = true
@@ -19630,7 +19630,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.comments.data
     ? _c("div", [
-        _c("p", [
+        _c("p", { staticClass: "mb-8" }, [
           _vm._v(
             "There are currently " +
               _vm._s(_vm.comments.data.length) +
@@ -19643,20 +19643,19 @@ var render = function() {
           _vm._l(_vm.comments.data, function(comment) {
             return _c("li", { key: comment.data }, [
               _c("div", [
-                _c("p", [
-                  _vm._v("hello " + _vm._s(comment.user.data.username))
-                ]),
+                _c("p", [_vm._v(_vm._s(comment.user.data.username) + " says")]),
                 _vm._v(" "),
                 _c("p", [_vm._v(_vm._s(comment.body))]),
                 _vm._v(" "),
-                _c("img", { attrs: { src: comment.user.data.avatar, alt: "" } })
+                _c("img", {
+                  staticClass: "w-16",
+                  attrs: { src: comment.user.data.avatar, alt: "" }
+                })
               ])
             ])
           }),
           0
-        ),
-        _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.comments.data[0].user.data.username))])
+        )
       ])
     : _vm._e()
 }

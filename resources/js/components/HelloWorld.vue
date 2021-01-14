@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>It's hacking time</p>
+    <p>It's hacking time (Vue loaded)</p>
   </div>
 </template>
 
