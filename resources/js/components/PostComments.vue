@@ -2,7 +2,7 @@
     <div>
         <p>There are currently {{ comments.length }} comments</p>
 
-        <ul>
+        <!-- <ul>
             <li v-for="comment in this.comments" v-bind:key="comment">>
 
     <div class="bg-gray-200 my-2 p-1 dark:bg-transparent dark:border-solid border border-white border-opacity-40">
@@ -18,7 +18,7 @@
         </div>
 
             </li>
-        </ul>
+        </ul> -->
     </div>
 </template>
 
