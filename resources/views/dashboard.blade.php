@@ -7,6 +7,24 @@
         <h1 class="text-lg"><b>Welcome to your dashboard {{ $user->username }}</b></h1>
         <h2 class="text-md font-opacity-50">Your name: {{$user->name}}</h2>
 
+        {{-- <div id='app'> --}}
+            {{-- <form id="app" action="" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+            <avatar-upload></avatar-upload>
+            <img src="{{ $user->getAvatar() }}" alt="Your avatar">
+            
+            <div class="my-4">
+                <label for="image">Avatar image</label>
+                <input type="file" name="image" id="image">
+            </div>
+
+            <div>
+                <button type="submit" class="bg-hacker-orange text-white py-2 rounded-sm dark:bg-dark-gh-btn">Update avatar</button>
+            </div>
+        </form> --}}
+        {{-- </div> --}}
+
         <div>
             <img src="{{ $user->getAvatar() }}" alt="Your avatar">
         </div>

@@ -18,6 +18,7 @@ use App\Http\Controllers\UserPostController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
@@ -45,3 +46,5 @@ Route::patch('/posts/{post}', [PostController::class, 'edit'])->name('posts.edit
 
 Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy']); // Name should be inherited
+
+Route::get('/posts/{post}/comments', [PostCommentController::class, 'index'])->name('posts.comments');
