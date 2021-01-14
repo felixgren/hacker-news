@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hacker News</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 </head>
 
 <body class="bg-gray-200 dark:bg-black-gh-bg">
-    <nav class="bg-hacker-orange dark:bg-dark-gh-banner flex flex-wrap p-2 mb-6 sm:flex-nowrap sm:justify-between">
+    <nav class="bg-hacker-orange text-white dark:bg-dark-gh-banner flex flex-wrap p-4 sm:flex-nowrap sm:justify-between">
         <ul class="flex items-center">
             <li>
                 <a href="{{ route('home') }}" class="navbar-link dark:text-white">Home</a>
@@ -22,7 +23,7 @@
             </li>
         </ul>
 
-        <h1 class="font-mono font-bold order-first w-full sm:order-none sm:w-auto sm:text-xl dark:text-white">Hacker News</h1>
+        <h1 class="font-mono font-bold order-first w-full sm:order-none sm:w-auto sm:text-xl">Hacker News</h1>
 
         <ul class="flex items-center">
             @guest
