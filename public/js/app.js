@@ -1858,6 +1858,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1871,8 +1881,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$http.get('/posts/10/comments').then(function (response) {
-        console.log(response.json());
-        console.log(response.body);
+        console.log(response.body.data);
         _this.comments = response.body;
         console.log(response.body.data[0].body); // console.log(response.data);
         // console.log(response.body.data[0].user.data['username']);
@@ -19629,9 +19638,25 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("ul", [
-          _c("li", [_vm._v(_vm._s(_vm.comments.data[0].user.data.username))])
-        ])
+        _c(
+          "ul",
+          _vm._l(_vm.comments.data, function(comment) {
+            return _c("li", { key: comment.data }, [
+              _c("div", [
+                _c("p", [
+                  _vm._v("hello " + _vm._s(comment.user.data.username))
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(comment.body))]),
+                _vm._v(" "),
+                _c("img", { attrs: { src: comment.user.data.avatar, alt: "" } })
+              ])
+            ])
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(_vm.comments.data[0].user.data.username))])
       ])
     : _vm._e()
 }
