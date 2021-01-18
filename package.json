@@ -12,9 +12,9 @@
     "devDependencies": {
         "@tailwindcss/postcss7-compat": "^2.0.2",
         "autoprefixer": "^9.8.6",
-        "axios": "^0.19",
+        "axios": "^0.21.1",
         "browser-sync": "^2.26.13",
-        "browser-sync-webpack-plugin": "^2.0.1",
+        "browser-sync-webpack-plugin": "^2.3.0",
         "cross-env": "^7.0",
         "laravel-mix": "^6.0.9",
         "lodash": "^4.17.19",
