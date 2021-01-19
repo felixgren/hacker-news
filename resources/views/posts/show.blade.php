@@ -2,8 +2,11 @@
 
 @section('content')
 <div class="flex justify-center">
-    <div class="w-10/12 bg-white p-3 sm:p-6 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-40">
-        <x-post :post="$post"/>
+    <div class="w-full bg-white px-2 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-40">
+        
+        <x-post :post="$post" :singlePost="$singlePost" :test="$test"/>
+        <p>yes this is {{$test}}</p>
+        <p>status: {{$singlePost}}</p>
 
         @can('update', $post)
         <div class="w-full flex ">
@@ -29,12 +32,12 @@
             </form>
         </div>
         @endcan
-
-        <div id="app">
-            {{-- Pass in post id as prop --}}
-            <post-comments post-id={{ $post->id }}></post-comments>
-        </div>
-        
     </div>
+</div>
+
+
+<div id="app" class="w-full bg-white px-2 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-40">
+    {{-- Pass in post id as prop --}}
+    <post-comments post-id={{ $post->id }}></post-comments>
 </div>
 @endsection

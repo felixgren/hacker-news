@@ -3,9 +3,8 @@
 @section('content')
 <div class="flex justify-center">
     <div
-        class="w-10/12 bg-white p-3 sm:p-6 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-40">
-        <h1 class="text-lg"><b>Welcome to your dashboard {{ $user->username }}</b></h1>
-        <h2 class="text-md font-opacity-50">Your name: {{$user->name}}</h2>
+        class="w-full bg-white p-3 sm:p-6 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-40">
+        <h2 class="text-lg text-center font-light"><b>Welcome to your dashboard {{ $user->username }}</b></h2>
 
         {{-- <div id='app'> --}}
             {{-- <form id="app" action="" method="post" enctype="multipart/form-data">
@@ -26,10 +25,8 @@
         {{-- </div> --}}
 
         <div>
-            <img src="{{ $user->getAvatar() }}" alt="Your avatar">
+            <img class="border-2 border-gray-300 rounded-lg w-40 h-40 m-auto my-3 object-cover dark:border-transparent" src="{{ $user->getAvatar() }}" alt="Your avatar">
         </div>
-
-        <h2>Update your settings</h2>
 
         <form action="" method="post" enctype="multipart/form-data">
         @csrf
@@ -75,7 +72,7 @@
             </div>
 
             <div>
-                <button type="submit" class="bg-hacker-orange text-white py-2 rounded-sm w-full dark:bg-dark-gh-btn">Update settings</button>
+                <button type="submit" class="bg-hacker-orange text-white py-2 rounded-sm w-full">Update settings</button>
             </div>
 
             @if (session('status'))
@@ -100,19 +97,6 @@
                 class="bg-gray-100 border-solid border border-black border-opacity-40 w-full p-1 rounded-sm dark:bg-transparent dark:border-white @error('password') border-red-500 border-opacity-100  @enderror" value="">
             </div> --}}
         </form>
-
-
-        @if ($posts->count()) 
-            <p> You have {{ $posts->total() }} {{ Str::plural('post', $posts->total())}} 
-                and {{ $user->receivedLikes->count() }} karma</p>
-                @foreach ($posts as $post)
-                    <x-post :post="$post" />
-                @endforeach
-
-                {{ $posts->links() }} {{-- Included tailwind view --}}
-        @else
-        <p>You haven't posted anything yet.</p>
-        @endif
     </div>
 </div>
 @endsection

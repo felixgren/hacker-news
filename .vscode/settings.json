@@ -2,6 +2,7 @@
     "css.customData": [
         ".vscode/css-custom-data.json"
     ],
+    "css.validate": false,
     "emmet.triggerExpansionOnTab": true,
     "blade.format.enable": true,
     "[blade]": {

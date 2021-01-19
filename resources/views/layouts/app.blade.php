@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hacker News</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 </head>
 
 <body class="bg-gray-200 dark:bg-black-gh-bg">
-    <nav class="bg-hacker-orange dark:bg-dark-gh-banner flex flex-wrap p-2 mb-6 sm:flex-nowrap sm:justify-between">
+    <nav class="bg-hacker-orange dark:bg-dark-gh-banner flex flex-wrap p-4 sm:flex-nowrap sm:justify-between">
         <ul class="flex items-center">
             <li>
                 <a href="{{ route('home') }}" class="navbar-link dark:text-white">Home</a>
             </li>
             <li>
-                <a href="{{ route('dashboard') }}" class="navbar-link dark:text-white">Dashboard</a>
+                <a href="{{ route('dashboard') }}" class="navbar-link dark:text-white">Settings</a>
             </li>
             <li>
                 <a href="{{ route('posts') }}" class="navbar-link dark:text-white">Posts</a>
