@@ -1,10 +1,13 @@
-@props(['post' => $post, 'singlePost' => $singlePost, 'test' => $test])
+@props(['post' => $post, 'singlePost' => $singlePost])
 
 <div class="bg-gray-200 p-3 flex items-center my-3 rounded dark:bg-black-gh-bg dark:text-white">
     <div class="w-full max-w-xs-2">
 
-        <p>{{$test}}</p>
         <p>status: {{$singlePost}}</p>
+        @if ($singlePost)
+            <p>heyHEYHEYHEY</p>
+        @endif
+        
 
         <div style="width: calc(100% - 46px);" class="absolute flex justify-between">
             <a href="{{ route('users.posts', $post->user) }}">
@@ -20,6 +23,8 @@
             </a>
         </div>
 
+        {{-- start/multipost style --}}
+        @if (!$singlePost)
         <a href="{{ route('posts.show', $post) }}">
             <div class="mt-8">
                 <strong><p>{{ $post->title}}</p></strong>
@@ -41,6 +46,29 @@
             @endif
             @endauth
         </a>
+
+        {{-- single page style --}}
+        @else
+        <div class="mt-8">
+            <strong><p>{{ $post->title}}</p></strong>
+            <p class="font-light mt-2">{{ $post->body }}</p>
+            <a href="{{ $post->link }}" class="text-gray-400 text-xs hover:underline dark:text-blue-400">{{ $post->link }}</a>
+        </div>
+        
+        @if (!$post->LikedBy(auth()->user()))
+        <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
+            @csrf
+            <button type="submit" class="text-gray-500"><i class="fas fa-angle-double-up"></i> <span class="font-light">{{ $post->likes->count() }}</span> <span class="mt-3 text-gray-500 text-xs opacity-80">(Like)</button>
+        </form>
+        @else
+        <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="text-hacker-orange"><i class="fas fa-angle-double-up text-lg"></i> <span class="font-light">{{ $post->likes->count() }}</span> <span class="mt-3 text-gray-500 text-xs opacity-80">(Unlike)</span></button>
+        </form>
+        @endauth
+        @endif
+
 
         <div class="flex flex-wrap items-center">
             @auth

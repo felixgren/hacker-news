@@ -62,11 +62,10 @@
             </form>
         @endauth
 
-        <p>{{$test}}</p>
         @if ($posts->count()) 
             <p class="pt-6 pl-2"> We have a total of {{$posts->total()}} posts!</p>
                 @foreach ($posts as $post)
-                    <x-post :post="$post" :test="$test" :singlePost="$singlePost"/>
+                    <x-post :post="$post" :singlePost="$singlePost"/>
                 @endforeach
 
                 {{ $posts->links() }} {{-- Included tailwind view --}}

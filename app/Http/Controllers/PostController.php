@@ -8,30 +8,27 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-
-    private $test;
+    private $singlePost;
 
     public function __construct()
     {
-        $this->test = "hey im working loool";
+        $this->singlePost = False;
         $this->middleware(['auth'])->only(['store']);
     }
 
     public function index()
     {
         $posts = Post::with(['user', 'likes'])->orderByDesc('created_at')->paginate(15); // Get 5 posts in LengthAwarePaginator as a collection
-        $singlePost = "NOPE";
-        return view('posts.index', ['posts' => $posts, 'test' => $this->test, 'singlePost' => $singlePost]); // View with posts collection passed in
+        return view('posts.index', ['posts' => $posts, 'singlePost' => $this->singlePost]); // View with posts collection passed in
     }
 
     public function show(Post $post)
     {
-        $singlePost = True;
+        $this->singlePost = True;
 
         return view('posts.show', [
             'post' => $post,
-            'singlePost' => $singlePost,
-            'test' => $this->test
+            'singlePost' => $this->singlePost,
         ]);
     }
 
