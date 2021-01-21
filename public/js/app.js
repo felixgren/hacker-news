@@ -1912,6 +1912,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -19675,29 +19692,101 @@ var render = function() {
   return _vm.comments.data
     ? _c("div", [
         _c("p", { staticClass: "mb-4" }, [
-          _vm._v(
-            "There are currently " +
-              _vm._s(_vm.comments.data.length) +
-              " comments"
-          )
+          _vm._v(_vm._s(_vm.comments.data.length) + " comments")
         ]),
         _vm._v(" "),
         _c(
           "ul",
+          {},
           _vm._l(_vm.comments.data, function(comment) {
             return _c("li", { key: comment.data }, [
-              _c("div", [
-                _c("img", {
-                  staticClass: "w-16 h-auto max-h-16",
-                  attrs: { src: comment.user.data.avatar, alt: "" }
-                }),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v("username: " + _vm._s(comment.user.data.username))
-                ]),
-                _vm._v(" "),
-                _c("p", [_vm._v("comment body: " + _vm._s(comment.body))])
-              ])
+              _c(
+                "div",
+                [
+                  _c("div", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href: "/users/" + comment.user.username + "/posts"
+                        }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "w-16 h-auto max-h-16",
+                          attrs: {
+                            src: comment.user.data.avatar,
+                            alt: comment.user.data.username + " avatar"
+                          }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mb-4" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-blue-500",
+                        attrs: {
+                          href: "/users/" + comment.user.username + "/posts"
+                        }
+                      },
+                      [_vm._v(_vm._s(comment.user.data.username))]
+                    ),
+                    _vm._v(
+                      " " +
+                        _vm._s(comment.created_at_human) +
+                        "\n                    "
+                    ),
+                    _c("p", [_vm._v(_vm._s(comment.body))])
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(comment.replies.data, function(reply) {
+                    return _c("li", { key: reply.data, staticClass: "ml-8" }, [
+                      _c("div", [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: "/users/" + reply.user.username + "/posts"
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "w-16 h-auto max-h-16",
+                              attrs: {
+                                src: reply.user.data.avatar,
+                                alt: reply.user.data.username + " avatar"
+                              }
+                            })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "mb-4" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "text-blue-500",
+                            attrs: {
+                              href: "/users/" + reply.user.username + "/posts"
+                            }
+                          },
+                          [_vm._v(_vm._s(reply.user.data.username))]
+                        ),
+                        _vm._v(
+                          " " +
+                            _vm._s(reply.created_at_human) +
+                            "\n                    "
+                        ),
+                        _c("p", [_vm._v(_vm._s(reply.body))])
+                      ])
+                    ])
+                  })
+                ],
+                2
+              )
             ])
           }),
           0

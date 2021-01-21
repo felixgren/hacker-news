@@ -4,11 +4,7 @@
     <div class="w-full max-w-xs-2">
 
         <p>status: {{$singlePost}}</p>
-        @if ($singlePost)
-            <p>heyHEYHEYHEY</p>
-        @endif
         
-
         <div style="width: calc(100% - 46px);" class="absolute flex justify-between">
             <a href="{{ route('users.posts', $post->user) }}">
                 <div class="text-xs">
@@ -23,7 +19,7 @@
             </a>
         </div>
 
-        {{-- start/multipost style --}}
+        {{-- start page/multipost style --}}
         @if (!$singlePost)
         <a href="{{ route('posts.show', $post) }}">
             <div class="mt-8">
