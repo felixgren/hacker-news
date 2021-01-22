@@ -1929,10 +1929,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      comments: [] // Will store comments of instance
+      comments: [],
+      // Will store comments of instance
+      body: null // Post comment body
 
     };
   },
@@ -1942,11 +1960,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$http.get('/posts/10/comments').then(function (response) {
-        console.log(response.body.data);
         _this.comments = response.body;
-        console.log(response.body.data[0].body); // console.log(response.data);
-        // console.log(response.body.data[0].user.data['username']);
       });
+    },
+    createComment: function createComment() {
+      console.log('hello, COMMENT TIME');
     }
   },
   mounted: function mounted() {
@@ -1984,9 +2002,11 @@ __webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-re
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('hello-world', __webpack_require__(/*! ./components/HelloWorld.vue */ "./resources/js/components/HelloWorld.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('avatar-upload', __webpack_require__(/*! ./components/AvatarUpload.vue */ "./resources/js/components/AvatarUpload.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('post-comments', __webpack_require__(/*! ./components/PostComments.vue */ "./resources/js/components/PostComments.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vue_resource__WEBPACK_IMPORTED_MODULE_0__.default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vue_resource__WEBPACK_IMPORTED_MODULE_0__.default); // The data is from views at layouts/app.blade.php
+
 var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
-  el: '#app'
+  el: '#app',
+  data: window.hackernews
 });
 
 /***/ }),
@@ -19694,6 +19714,59 @@ var render = function() {
         _c("p", { staticClass: "mb-4" }, [
           _vm._v(_vm._s(_vm.comments.data.length) + " comments")
         ]),
+        _vm._v(" "),
+        _vm.$root.user.authenticated
+          ? _c("div", {}, [
+              _c("p", [_vm._v("HELLO YOU ARE AUTHENTICATED/LOGGED IN")]),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "label",
+                  {
+                    staticClass: "sr-only",
+                    attrs: { for: "comment-body", id: "comment-body" }
+                  },
+                  [_vm._v("Post comment")]
+                ),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.body,
+                      expression: "body"
+                    }
+                  ],
+                  staticClass:
+                    "bg-gray-100 border border-solid border-gray-300 w-full mt-2 p-2 rounded-sm dark:border-gray-400 dark:bg-transparent @error('body') border-red-500 @enderror",
+                  attrs: { name: "comment-body", placeholder: "Add a comment" },
+                  domProps: { value: _vm.body },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.body = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90",
+                    attrs: { "aria-label": "Submit", type: "submit" },
+                    on: { click: _vm.createComment }
+                  },
+                  [_vm._v("Post comment")]
+                )
+              ])
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "ul",

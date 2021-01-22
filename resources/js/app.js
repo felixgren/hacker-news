@@ -22,6 +22,8 @@ Vue.component('post-comments', require('./components/PostComments.vue').default)
 
 Vue.use(VueResource);
 
+// The data is from views at layouts/app.blade.php
 const app = new Vue({
     el: '#app',
+    data: window.hackernews
 });

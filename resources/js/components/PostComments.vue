@@ -1,6 +1,22 @@
 <template>
     <div v-if="comments.data">
         <p class="mb-4">{{ comments.data.length }} comments</p>
+
+        <!-- Checking if user is logged in by accessing 'root' instance data, i.e 'new Vue' in app.js  -->
+        <div class="" v-if="$root.user.authenticated">
+            <p>HELLO YOU ARE AUTHENTICATED/LOGGED IN</p>
+
+            <div>
+                <label for="comment-body" id="comment-body" class="sr-only">Post comment</label>
+                <textarea name="comment-body" v-model="body"
+                class="bg-gray-100 border border-solid border-gray-300 w-full mt-2 p-2 rounded-sm dark:border-gray-400 dark:bg-transparent @error('body') border-red-500 @enderror" placeholder="Add a comment"></textarea>
+            </div>
+
+            <div>
+                <button aria-label="Submit" type="submit" @click="createComment" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post comment</button>
+            </div>
+        </div>
+
         <ul class="">
             <li v-for="comment in comments.data" :key="comment.data">
                 <div>
@@ -37,6 +53,7 @@ export default {
     data () {
         return{
             comments: [], // Will store comments of instance
+            body: null, // Post comment body
         }
     },
     props: {
@@ -44,16 +61,11 @@ export default {
     methods: {
         getComments() {
             this.$http.get('/posts/10/comments').then(response => {
-
-                console.log(response.body.data);
-
                 this.comments = response.body;
-
-                console.log(response.body.data[0].body);
-                
-                // console.log(response.data);
-                // console.log(response.body.data[0].user.data['username']);
             });
+        },
+        createComment () {
+            console.log('hello, COMMENT TIME');
         }
     },
 

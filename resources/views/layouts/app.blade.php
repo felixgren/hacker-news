@@ -7,6 +7,17 @@
     <title>Hacker News</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+    {{-- Making user data accessible to vue by adding them to the global window object --}}
+    <script>
+        window.hackernews = {
+            url: '{{ 'config(app.url)' }}',
+            user: {
+                id: {{ Auth::check() ? Auth::user()->id : 'null' }},
+                authenticated: {{ Auth::check() ? 'true' : 'false' }}
+            }
+        }
+    </script>
 </head>
 
 <body class="bg-gray-200 dark:bg-black-gh-bg">

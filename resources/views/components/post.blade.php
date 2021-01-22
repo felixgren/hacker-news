@@ -19,7 +19,7 @@
             </a>
         </div>
 
-        {{-- start page/multipost style --}}
+        {{-- Start page/multipost style --}}
         @if (!$singlePost)
         <a href="{{ route('posts.show', $post) }}">
             <div class="mt-8">
@@ -43,7 +43,7 @@
             @endauth
         </a>
 
-        {{-- single page style --}}
+        {{-- Single page style --}}
         @else
         <div class="mt-8">
             <strong><p>{{ $post->title}}</p></strong>
@@ -51,19 +51,21 @@
             <a href="{{ $post->link }}" class="text-gray-400 text-xs hover:underline dark:text-blue-400">{{ $post->link }}</a>
         </div>
         
+        @auth
         @if (!$post->LikedBy(auth()->user()))
         <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
             @csrf
             <button type="submit" class="text-gray-500"><i class="fas fa-angle-double-up"></i> <span class="font-light">{{ $post->likes->count() }}</span> <span class="mt-3 text-gray-500 text-xs opacity-80">(Like)</button>
         </form>
         @else
+        @endauth
         <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
             @csrf
             @method('DELETE')
             <button type="submit" class="text-hacker-orange"><i class="fas fa-angle-double-up text-lg"></i> <span class="font-light">{{ $post->likes->count() }}</span> <span class="mt-3 text-gray-500 text-xs opacity-80">(Unlike)</span></button>
         </form>
-        @endauth
         @endif
+        @endauth
 
 
         <div class="flex flex-wrap items-center">
