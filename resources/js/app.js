@@ -1,6 +1,6 @@
 require('./bootstrap');
 
-import Vue from 'vue'
+import Vue from 'vue';
 import VueResource from 'vue-resource';
 
 // const api  = axios.create({
@@ -15,6 +15,12 @@ import VueResource from 'vue-resource';
 
 window.Vue = require('vue').default;
 require('vue-resource');
+
+// Vue.http.interceptors.push((request, next) => {
+//     request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
+
+//     next();
+// });
 
 Vue.component('hello-world', require('./components/HelloWorld.vue').default);
 Vue.component('avatar-upload', require('./components/AvatarUpload.vue').default);

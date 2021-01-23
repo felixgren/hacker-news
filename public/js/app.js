@@ -1944,7 +1944,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1956,15 +1955,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {},
   methods: {
-    getComments: function getComments() {
+    // getComments() {
+    //     this.$http.get('/posts/10/comments').then(response => {
+    //         this.comments = response.body;
+    //     });
+    // },
+    createComment: function createComment() {
       var _this = this;
 
-      this.$http.get('/posts/10/comments').then(function (response) {
-        _this.comments = response.body;
+      console.log('hello, COMMENT TIME yes');
+      this.$http.post('/posts/10/comments', {
+        body: this.body
+      }).then(function (response) {
+        console.log('hello');
+        console.log(response.body);
+
+        _this.comments.unshift(response.body);
+
+        _this.body = null;
       });
     },
-    createComment: function createComment() {
-      console.log('hello, COMMENT TIME');
+    getComments: function getComments() {
+      var _this2 = this;
+
+      this.$http.get('/posts/10/comments').then(function (response) {
+        _this2.comments = response.body;
+      });
     }
   },
   mounted: function mounted() {
@@ -1997,7 +2013,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
 
-__webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js");
+__webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js"); // Vue.http.interceptors.push((request, next) => {
+//     request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
+//     next();
+// });
+
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('hello-world', __webpack_require__(/*! ./components/HelloWorld.vue */ "./resources/js/components/HelloWorld.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('avatar-upload', __webpack_require__(/*! ./components/AvatarUpload.vue */ "./resources/js/components/AvatarUpload.vue").default);
@@ -19781,7 +19801,8 @@ var render = function() {
                       "a",
                       {
                         attrs: {
-                          href: "/users/" + comment.user.username + "/posts"
+                          href:
+                            "/users/" + comment.user.data.username + "/posts"
                         }
                       },
                       [
@@ -19802,7 +19823,8 @@ var render = function() {
                       {
                         staticClass: "text-blue-500",
                         attrs: {
-                          href: "/users/" + comment.user.username + "/posts"
+                          href:
+                            "/users/" + comment.user.data.username + "/posts"
                         }
                       },
                       [_vm._v(_vm._s(comment.user.data.username))]
@@ -19863,9 +19885,7 @@ var render = function() {
             ])
           }),
           0
-        ),
-        _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.comments.data[0].user.data.username))])
+        )
       ])
     : _vm._e()
 }

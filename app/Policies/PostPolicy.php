@@ -15,4 +15,10 @@ class PostPolicy
         // Compare defined post model user to current post
         return $user->id === intval($post->user_id);
     }
+
+    // public function comment(User $user, Post $post)
+    // {
+    //     if ($user->id == $this->user->)
+
+    // }
 }

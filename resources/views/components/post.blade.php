@@ -58,13 +58,13 @@
             <button type="submit" class="text-gray-500"><i class="fas fa-angle-double-up"></i> <span class="font-light">{{ $post->likes->count() }}</span> <span class="mt-3 text-gray-500 text-xs opacity-80">(Like)</button>
         </form>
         @else
-        @endauth
         <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
             @csrf
             @method('DELETE')
             <button type="submit" class="text-hacker-orange"><i class="fas fa-angle-double-up text-lg"></i> <span class="font-light">{{ $post->likes->count() }}</span> <span class="mt-3 text-gray-500 text-xs opacity-80">(Unlike)</span></button>
         </form>
         @endif
+        @endauth
         @endauth
 
 

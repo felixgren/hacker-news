@@ -21,12 +21,12 @@
             <li v-for="comment in comments.data" :key="comment.data">
                 <div>
                     <div>
-                        <a :href="'/users/' + comment.user.username + '/posts'">
+                        <a :href="'/users/' + comment.user.data.username + '/posts'">
                             <img :src="comment.user.data.avatar" v-bind:alt="comment.user.data.username + ' avatar'" class="w-16 h-auto max-h-16">
                         </a>
                     </div>
                     <div class="mb-4">
-                        <a :href="'/users/' + comment.user.username + '/posts'" class="text-blue-500">{{ comment.user.data.username }}</a> {{ comment.created_at_human }}
+                        <a :href="'/users/' + comment.user.data.username + '/posts'" class="text-blue-500">{{ comment.user.data.username }}</a> {{ comment.created_at_human }}
                         <p>{{ comment.body}}</p>
                     </div>
 
@@ -44,7 +44,6 @@
                 </div>
             </li>
         </ul>
-        <p>{{ comments.data[0].user.data.username }}</p>
     </div>
 </template>
 
@@ -59,14 +58,29 @@ export default {
     props: {
     },
     methods: {
+        // getComments() {
+        //     this.$http.get('/posts/10/comments').then(response => {
+        //         this.comments = response.body;
+        //     });
+        // },
+        createComment () {
+            console.log('hello, COMMENT TIME yes');
+
+            this.$http.post('/posts/10/comments', {
+                body: this.body
+            }).then(response => {
+                console.log('hello');
+                console.log(response.body);
+                this.comments.unshift(response.body);
+                this.body = null;
+            });
+        },
+
         getComments() {
             this.$http.get('/posts/10/comments').then(response => {
                 this.comments = response.body;
             });
         },
-        createComment () {
-            console.log('hello, COMMENT TIME');
-        }
     },
 
     mounted() {
