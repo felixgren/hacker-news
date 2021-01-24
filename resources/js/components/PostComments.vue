@@ -15,6 +15,10 @@
             <div>
                 <button aria-label="Submit" type="submit" @click="createComment" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post comment</button>
             </div>
+
+            <div class="text-red-500">
+                {{errors?errors[0]:''}}
+            </div>
         </div>
 
         <ul class="">
@@ -54,6 +58,7 @@ export default {
         return{
             comments: [], // Will store comments of instance
             body: null, // Post comment body
+            errors: [], // Will store validation errors
         }
     },
     props: {
@@ -63,9 +68,11 @@ export default {
             this.$http.post('/posts/10/comments', {
                 body: this.body
             }).then(response => {
-
                 this.comments.unshift(response.data.data);
                 this.body = null; // Clear comment content from input field
+                this.errors = null; // Clear error message
+            }, response => {
+                this.errors = response.body.errors.body
             });
         },
 

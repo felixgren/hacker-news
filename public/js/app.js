@@ -1945,12 +1945,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       comments: [],
       // Will store comments of instance
-      body: null // Post comment body
+      body: null,
+      // Post comment body
+      errors: [] // Will store validation errors
 
     };
   },
@@ -1965,6 +1971,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.comments.unshift(response.data.data);
 
         _this.body = null; // Clear comment content from input field
+
+        _this.errors = null; // Clear error message
+      }, function (response) {
+        _this.errors = response.body.errors.body;
       });
     },
     getComments: function getComments() {
@@ -19768,6 +19778,14 @@ var render = function() {
                     on: { click: _vm.createComment }
                   },
                   [_vm._v("Post comment")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-red-500" }, [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.errors ? _vm.errors[0] : "") +
+                    "\n        "
                 )
               ])
             ])
