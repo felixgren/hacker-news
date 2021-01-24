@@ -34,7 +34,8 @@
 
     <div id="app" class="w-full bg-white px-2 sm:rounded-lg md:max-w-screen-md xl:max-w-screen-lg dark:text-white dark:bg-transparent dark:border-solid border border-white border-opacity-40">
         {{-- Pass in post id as prop --}}
-        <post-comments post-id={{ $post->id }}></post-comments>
+        @csrf
+        <post-comments></post-comments>
     </div>
 </div>
 @endsection

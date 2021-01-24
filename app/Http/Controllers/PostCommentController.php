@@ -35,7 +35,7 @@ class PostCommentController extends Controller
 
         return response()->json(
             fractal()->item($comment)
-                ->parseIncludes(['user'])
+                ->parseIncludes(['user', 'replies'])
                 ->transformWith(new CommentTransformer)
                 ->toArray()
         );

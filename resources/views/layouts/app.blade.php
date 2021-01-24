@@ -8,14 +8,15 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
 
-        console.log(window.Laravel);
+        // console.log(window.Vue)
+        // console.log('hhhdshfhdf')
 
         // Making user data accessible to vue by adding them to the global window object 
         window.hackernews = {

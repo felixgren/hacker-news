@@ -1878,7 +1878,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
-    console.log("Hello World, the view is nice");
+    console.log("Hello World, the vue is nice");
   }
 });
 
@@ -1895,6 +1895,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+//
 //
 //
 //
@@ -1963,14 +1964,15 @@ __webpack_require__.r(__webpack_exports__);
     createComment: function createComment() {
       var _this = this;
 
-      console.log('hello, COMMENT TIME yes');
+      console.log(window.Laravel.csrfToken);
+      console.log('lala LALALALALALLALA'); // console.log(window.Vue)
+
       this.$http.post('/posts/10/comments', {
         body: this.body
       }).then(function (response) {
-        console.log('hello');
-        console.log(response.body);
+        _this.comments.unshift(response.data.data); // console.log('done')
+        // console.log(this.comments)
 
-        _this.comments.unshift(response.body);
 
         _this.body = null;
       });
@@ -1979,7 +1981,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$http.get('/posts/10/comments').then(function (response) {
-        _this2.comments = response.body;
+        _this2.comments = response.body.data;
+        console.log(_this2.comments);
       });
     }
   },
@@ -2012,17 +2015,24 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 // export default api
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
+vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vue_resource__WEBPACK_IMPORTED_MODULE_0__.default);
 
-__webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js"); // Vue.http.interceptors.push((request, next) => {
-//     request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
-//     next();
-// });
+__webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js");
 
-
+vue__WEBPACK_IMPORTED_MODULE_1__.default.http.interceptors.push(function (request, next) {
+  console.log(request);
+  console.log(next);
+  console.log(request.headers['X-CSRF-TOKEN']);
+  console.log(request.headers);
+  console.log(Laravel.csrfToken + ' heeej');
+  request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
+  console.log(request.headers['X-CSRF-TOKEN']);
+  console.log(window.Vue.http.interceptors);
+  next();
+});
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('hello-world', __webpack_require__(/*! ./components/HelloWorld.vue */ "./resources/js/components/HelloWorld.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('avatar-upload', __webpack_require__(/*! ./components/AvatarUpload.vue */ "./resources/js/components/AvatarUpload.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('post-comments', __webpack_require__(/*! ./components/PostComments.vue */ "./resources/js/components/PostComments.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vue_resource__WEBPACK_IMPORTED_MODULE_0__.default); // The data is from views at layouts/app.blade.php
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('post-comments', __webpack_require__(/*! ./components/PostComments.vue */ "./resources/js/components/PostComments.vue").default); // The data is from views at layouts/app.blade.php
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
   el: '#app',
@@ -19729,10 +19739,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.comments.data
+  return _vm.comments
     ? _c("div", [
         _c("p", { staticClass: "mb-4" }, [
-          _vm._v(_vm._s(_vm.comments.data.length) + " comments")
+          _vm._v(_vm._s(_vm.comments.length) + " comments")
         ]),
         _vm._v(" "),
         _vm.$root.user.authenticated
@@ -19791,8 +19801,8 @@ var render = function() {
         _c(
           "ul",
           {},
-          _vm._l(_vm.comments.data, function(comment) {
-            return _c("li", { key: comment.data }, [
+          _vm._l(_vm.comments, function(comment) {
+            return _c("li", { key: comment.id }, [
               _c(
                 "div",
                 [
@@ -19838,13 +19848,14 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _vm._l(comment.replies.data, function(reply) {
-                    return _c("li", { key: reply.data, staticClass: "ml-8" }, [
+                    return _c("li", { key: reply.id, staticClass: "ml-8" }, [
                       _c("div", [
                         _c(
                           "a",
                           {
                             attrs: {
-                              href: "/users/" + reply.user.username + "/posts"
+                              href:
+                                "/users/" + reply.user.data.username + "/posts"
                             }
                           },
                           [
@@ -19865,7 +19876,8 @@ var render = function() {
                           {
                             staticClass: "text-blue-500",
                             attrs: {
-                              href: "/users/" + reply.user.username + "/posts"
+                              href:
+                                "/users/" + reply.user.data.username + "/posts"
                             }
                           },
                           [_vm._v(_vm._s(reply.user.data.username))]

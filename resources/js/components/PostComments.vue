@@ -1,6 +1,6 @@
 <template>
-    <div v-if="comments.data">
-        <p class="mb-4">{{ comments.data.length }} comments</p>
+    <div v-if="comments">
+        <p class="mb-4">{{ comments.length }} comments</p>
 
         <!-- Checking if user is logged in by accessing 'root' instance data, i.e 'new Vue' in app.js  -->
         <div class="" v-if="$root.user.authenticated">
@@ -18,7 +18,7 @@
         </div>
 
         <ul class="">
-            <li v-for="comment in comments.data" :key="comment.data">
+            <li v-for="comment in comments" :key="comment.id">                
                 <div>
                     <div>
                         <a :href="'/users/' + comment.user.data.username + '/posts'">
@@ -30,14 +30,15 @@
                         <p>{{ comment.body}}</p>
                     </div>
 
-                    <li v-for="reply in comment.replies.data" :key="reply.data" class="ml-8">
+                    <li v-for="reply in comment.replies.data" :key="reply.id" class="ml-8">
+
                     <div>
-                        <a :href="'/users/' + reply.user.username + '/posts'">
+                        <a :href="'/users/' + reply.user.data.username + '/posts'">
                             <img :src="reply.user.data.avatar" v-bind:alt="reply.user.data.username + ' avatar'" class="w-16 h-auto max-h-16">
                         </a>
                     </div>
                     <div class="mb-4">
-                        <a :href="'/users/' + reply.user.username + '/posts'" class="text-blue-500">{{ reply.user.data.username }}</a> {{ reply.created_at_human }}
+                        <a :href="'/users/' + reply.user.data.username + '/posts'" class="text-blue-500">{{ reply.user.data.username }}</a> {{ reply.created_at_human }}
                         <p>{{ reply.body}}</p>
                     </div>
                     </li>
@@ -64,21 +65,25 @@ export default {
         //     });
         // },
         createComment () {
-            console.log('hello, COMMENT TIME yes');
+            console.log(window.Laravel.csrfToken)
+            console.log('lala LALALALALALLALA')
+            // console.log(window.Vue)
 
             this.$http.post('/posts/10/comments', {
                 body: this.body
             }).then(response => {
-                console.log('hello');
-                console.log(response.body);
-                this.comments.unshift(response.body);
+
+                this.comments.unshift(response.data.data);
+                // console.log('done')
+                // console.log(this.comments)
                 this.body = null;
             });
         },
 
         getComments() {
             this.$http.get('/posts/10/comments').then(response => {
-                this.comments = response.body;
+                this.comments = response.body.data;
+                console.log(this.comments)
             });
         },
     },
@@ -86,5 +91,7 @@ export default {
     mounted() {
         this.getComments();
     }
+
+    
 }
 </script>
