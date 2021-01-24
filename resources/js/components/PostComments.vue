@@ -59,35 +59,22 @@ export default {
     props: {
     },
     methods: {
-        // getComments() {
-        //     this.$http.get('/posts/10/comments').then(response => {
-        //         this.comments = response.body;
-        //     });
-        // },
         createComment () {
-            console.log(window.Laravel.csrfToken)
-            console.log('lala LALALALALALLALA')
-            // console.log(window.Vue)
-
             this.$http.post('/posts/10/comments', {
                 body: this.body
             }).then(response => {
 
                 this.comments.unshift(response.data.data);
-                // console.log('done')
-                // console.log(this.comments)
-                this.body = null;
+                this.body = null; // Clear comment content from input field
             });
         },
 
         getComments() {
             this.$http.get('/posts/10/comments').then(response => {
                 this.comments = response.body.data;
-                console.log(this.comments)
             });
         },
     },
-
     mounted() {
         this.getComments();
     }

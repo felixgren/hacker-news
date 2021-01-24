@@ -1956,25 +1956,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {},
   methods: {
-    // getComments() {
-    //     this.$http.get('/posts/10/comments').then(response => {
-    //         this.comments = response.body;
-    //     });
-    // },
     createComment: function createComment() {
       var _this = this;
-
-      console.log(window.Laravel.csrfToken);
-      console.log('lala LALALALALALLALA'); // console.log(window.Vue)
 
       this.$http.post('/posts/10/comments', {
         body: this.body
       }).then(function (response) {
-        _this.comments.unshift(response.data.data); // console.log('done')
-        // console.log(this.comments)
+        _this.comments.unshift(response.data.data);
 
-
-        _this.body = null;
+        _this.body = null; // Clear comment content from input field
       });
     },
     getComments: function getComments() {
@@ -1982,7 +1972,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$http.get('/posts/10/comments').then(function (response) {
         _this2.comments = response.body.data;
-        console.log(_this2.comments);
       });
     }
   },
@@ -2006,13 +1995,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
- // const api  = axios.create({
-//     baseURL: 'api.domain.com',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   })
-// export default api
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
 vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vue_resource__WEBPACK_IMPORTED_MODULE_0__.default);
@@ -2020,14 +2002,7 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vue_resource__WEBPACK_IMPORTED_MODU
 __webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js");
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.http.interceptors.push(function (request, next) {
-  console.log(request);
-  console.log(next);
-  console.log(request.headers['X-CSRF-TOKEN']);
-  console.log(request.headers);
-  console.log(Laravel.csrfToken + ' heeej');
   request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
-  console.log(request.headers['X-CSRF-TOKEN']);
-  console.log(window.Vue.http.interceptors);
   next();
 });
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('hello-world', __webpack_require__(/*! ./components/HelloWorld.vue */ "./resources/js/components/HelloWorld.vue").default);

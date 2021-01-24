@@ -15,9 +15,6 @@
             'csrfToken' => csrf_token(),
         ]); ?>
 
-        // console.log(window.Vue)
-        // console.log('hhhdshfhdf')
-
         // Making user data accessible to vue by adding them to the global window object 
         window.hackernews = {
             url: '{{ 'config(app.url)' }}',
