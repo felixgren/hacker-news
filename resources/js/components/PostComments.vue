@@ -1,47 +1,58 @@
 <template>
     <div v-if="comments">
-        <p class="mb-4">{{ comments.length }} comments</p>
+        <p class="mt-4">{{ comments.length }} comments</p>
 
         <!-- Checking if user is logged in by accessing 'root' instance data, i.e 'new Vue' in app.js  -->
-        <div class="" v-if="$root.user.authenticated">
-            <p>HELLO YOU ARE AUTHENTICATED/LOGGED IN</p>
-
+        <div class="mb-4" v-if="$root.user.authenticated">
             <div>
                 <label for="comment-body" id="comment-body" class="sr-only">Post comment</label>
                 <textarea name="comment-body" v-model="body"
-                class="bg-gray-100 border border-solid border-gray-300 w-full mt-2 p-2 rounded-sm dark:border-gray-400 dark:bg-transparent @error('body') border-red-500 @enderror" placeholder="Add a comment"></textarea>
+                class="bg-gray-100 border border-solid border-gray-300 w-full mt-2 p-2 rounded-sm dark:border-gray-400 dark:bg-transparent" placeholder="Add a comment"></textarea>
             </div>
 
             <div>
-                <button aria-label="Submit" type="submit" @click="createComment" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post comment</button>
+                <button aria-label="Submit" type="submit" @click.prevent="createComment" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post comment</button>
             </div>
 
             <div class="text-red-500">
-                {{errors?errors[0]:''}}
+                {{errors ? errors[0] : ''}}
             </div>
         </div>
 
         <ul class="">
-            <li v-for="comment in comments" :key="comment.id">                
+            <li v-for="comment in comments" :key="comment.id" class="bg-gray-200 my-4 px-2 border dark:bg-transparent dark:border-solid dark:border-white border-opacity-20">                
                 <div>
                     <div>
                         <a :href="'/users/' + comment.user.data.username + '/posts'">
                             <img :src="comment.user.data.avatar" v-bind:alt="comment.user.data.username + ' avatar'" class="w-16 h-auto max-h-16">
                         </a>
                     </div>
-                    <div class="mb-4">
+                    <div>
                         <a :href="'/users/' + comment.user.data.username + '/posts'" class="text-blue-500">{{ comment.user.data.username }}</a> {{ comment.created_at_human }}
                         <p>{{ comment.body}}</p>
                     </div>
 
-                    <li v-for="reply in comment.replies.data" :key="reply.id" class="ml-8">
+                    <div>
+                        <ul>
+                            <li v-if="$root.user.authenticated" class="text-blue-500 text-sm">
+                                <a href="#" @click.prevent="toggleReplyForm(comment.id)">{{ replyFormVisible === comment.id ? 'Cancel' : 'Reply' }}</a>
+                            </li>
+                        </ul>
 
+                        <div v-if="replyFormVisible === comment.id">
+                            <textarea name="comment-reply-body" v-model="replyBody"
+                            class="bg-gray-100 border border-solid border-gray-300 w-full mt-2 p-2 rounded-sm dark:border-gray-400 dark:bg-transparent" placeholder="Add a reply"></textarea>
+                                <button aria-label="Submit" type="submit" @click.prevent="createReply(comment.id)" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post reply</button>
+                        </div>
+                    </div>
+
+                    <li v-for="reply in comment.replies.data" :key="reply.id" class="ml-8 bg-gray-200 my-4 pl-4 border-l-2 border-red-500 dark:bg-transparent dark:border-solid border-opacity-50">
                     <div>
                         <a :href="'/users/' + reply.user.data.username + '/posts'">
                             <img :src="reply.user.data.avatar" v-bind:alt="reply.user.data.username + ' avatar'" class="w-16 h-auto max-h-16">
                         </a>
                     </div>
-                    <div class="mb-4">
+                    <div class="">
                         <a :href="'/users/' + reply.user.data.username + '/posts'" class="text-blue-500">{{ reply.user.data.username }}</a> {{ reply.created_at_human }}
                         <p>{{ reply.body}}</p>
                     </div>
@@ -58,12 +69,19 @@ export default {
         return{
             comments: [], // Will store comments of instance
             body: null, // Post comment body
+            replyBody: null, // Post comment body
+            replyFormVisible: null,
             errors: [], // Will store validation errors
         }
     },
     props: {
     },
     methods: {
+        getComments() {
+            this.$http.get('/posts/10/comments').then(response => {
+                this.comments = response.body.data;
+            });
+        },
         createComment () {
             this.$http.post('/posts/10/comments', {
                 body: this.body
@@ -75,11 +93,34 @@ export default {
                 this.errors = response.body.errors.body
             });
         },
-
-        getComments() {
-            this.$http.get('/posts/10/comments').then(response => {
-                this.comments = response.body.data;
+        createReply (commentId) {
+            console.log(commentId)
+            this.$http.post('/posts/10/comments', {
+                body: this.replyBody,
+                reply_id: commentId
+            }).then(response => {
+                this.comments.map((comment, index) => {
+                    if (comment.id === commentId) {
+                        this.comments[index].replies.data.push(response.data.data);
+                    }
+                });
+                this.replyBody = null;
+                this.replyFormVisible = null; // Close reply window
+                this.errors = null;
+            }, response => {
+                this.errors = response.body.errors.body
             });
+        },
+        toggleReplyForm (commentId) {
+            this.replyBody = null;
+            // Check if selected form is the current open and close if true
+            // Others handled by v-if in template: line 44
+            if (this.replyFormVisible === commentId) {
+                this.replyFormVisible = null;
+                return;
+            };
+
+            this.replyFormVisible = commentId;
         },
     },
     mounted() {
