@@ -28,8 +28,11 @@
                         </a>
                     </div>
                     <div>
-                        <a :href="'/users/' + comment.user.data.username + '/posts'" class="text-blue-500">{{ comment.user.data.username }}</a> {{ comment.created_at_human }}
+                        <a :href="'/users/' + comment.user.data.username + '/posts'" class="text-blue-500">{{ comment.user.data.username }}</a> 
+                        {{ comment.created_at_human }}
+                        <span> : last update {{ comment.updated_at_human }} </span>
                         <p>{{ comment.body}}</p>
+                        <p>CREATED: {{ comment.created_at }} | UPDATED: {{ comment.updated_at }}</p>
                     </div>
 
                     <!-- Comment reply start -->

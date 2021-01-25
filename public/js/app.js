@@ -1995,6 +1995,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -19990,11 +19993,28 @@ var render = function() {
                         [_vm._v(_vm._s(comment.user.data.username))]
                       ),
                       _vm._v(
-                        " " +
+                        " \n                        " +
                           _vm._s(comment.created_at_human) +
                           "\n                        "
                       ),
-                      _c("p", [_vm._v(_vm._s(comment.body))])
+                      _c("span", [
+                        _vm._v(
+                          " : last update " +
+                            _vm._s(comment.updated_at_human) +
+                            " "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(comment.body))]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "CREATED: " +
+                            _vm._s(comment.created_at) +
+                            " | UPDATED: " +
+                            _vm._s(comment.updated_at)
+                        )
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("div", [
