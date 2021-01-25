@@ -50,4 +50,13 @@ class PostCommentController extends Controller
 
         return response()->json(null, 200);
     }
+
+    public function update(Post $post, Comment $comment)
+    {
+        $this->authorize('delete', $comment);
+        // Fix input validation if time
+        $comment->update();
+
+        return response()->json(null, 200);
+    }
 }

@@ -1969,6 +1969,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1978,9 +2004,12 @@ __webpack_require__.r(__webpack_exports__);
       // Post comment body
       replyBody: null,
       // Post comment body
+      editBody: null,
+      // Post comment body
       replyFormVisible: null,
-      errors: [] // Will store validation errors
-
+      errors: [],
+      // Will store validation errors
+      editFormVisible: null
     };
   },
   props: {
@@ -2000,6 +2029,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$http.post("/posts/".concat(this.postId, "/comments"), {
         body: this.body
       }).then(function (response) {
+        console.log(response.data.data);
+
         _this2.comments.unshift(response.data.data);
 
         _this2.body = null; // Clear comment content from input field
@@ -2007,6 +2038,24 @@ __webpack_require__.r(__webpack_exports__);
         _this2.errors = null; // Clear error message
       }, function (response) {
         _this2.errors = response.body.errors.body;
+      });
+    },
+    createEdit: function createEdit(commentId) {
+      // this.$http.delete(`${this.postId}/comments/${commentId}`)
+      this.$http.patch("".concat(this.postId, "/comments/").concat(commentId), {
+        body: this.editBody
+      }).then(function (response) {
+        // this.comments.unshift(response.data.data);
+        // this.editBody = null; // Clear comment content from input field
+        // this.errors = null; // Clear error message
+        // console.log(response.data.data);
+        console.log('yaay'); // this.comments.map((comment, index) => {
+        //         if (comment.id === commentId) {
+        //             this.comments.splice(index, 1);
+        //             return;
+        //         }
+      }, function (response) {
+        console.log('OH NO'); // this.errors = response.body.errors.body
       });
     },
     createReply: function createReply(commentId) {
@@ -2042,6 +2091,18 @@ __webpack_require__.r(__webpack_exports__);
 
       ;
       this.replyFormVisible = commentId;
+    },
+    toggleEditForm: function toggleEditForm(commentId) {
+      this.editBody = null; // Check if selected form is the current open and close if true
+      // Others handled by v-if in template: line 44
+
+      if (this.editFormVisible === commentId) {
+        this.editFormVisible = null;
+        return;
+      }
+
+      ;
+      this.editFormVisible = commentId;
     },
     deleteComment: function deleteComment(commentId) {
       if (!confirm('You sure about that?')) {
@@ -19872,9 +19933,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "text-red-500" }, [
                 _vm._v(
-                  "\n            " +
+                  "\n                " +
                     _vm._s(_vm.errors ? _vm.errors[0] : "") +
-                    "\n        "
+                    "\n            "
                 )
               ])
             ])
@@ -19931,7 +19992,7 @@ var render = function() {
                       _vm._v(
                         " " +
                           _vm._s(comment.created_at_human) +
-                          "\n                    "
+                          "\n                        "
                       ),
                       _c("p", [_vm._v(_vm._s(comment.body))])
                     ]),
@@ -20033,6 +20094,85 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
+                    _c("div", [
+                      _c("ul", { staticClass: "text-sm" }, [
+                        _vm.$root.user.authenticated
+                          ? _c("li", { staticClass: "text-green-500" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.toggleEditForm(comment.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.editFormVisible === comment.id
+                                        ? "Cancel"
+                                        : "Edit"
+                                    )
+                                  )
+                                ]
+                              )
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _vm.editFormVisible === comment.id
+                        ? _c("div", [
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.editBody,
+                                  expression: "editBody"
+                                }
+                              ],
+                              staticClass:
+                                "bg-gray-100 border border-solid border-gray-300 w-full mt-2 p-2 rounded-sm dark:border-gray-400 dark:bg-transparent",
+                              attrs: {
+                                name: "comment-edit-body",
+                                placeholder: comment.body
+                              },
+                              domProps: { value: _vm.editBody },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.editBody = $event.target.value
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90",
+                                attrs: {
+                                  "aria-label": "Submit",
+                                  type: "submit"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.createEdit(comment.id)
+                                  }
+                                }
+                              },
+                              [_vm._v("Post edit")]
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
                     _vm._l(comment.replies.data, function(reply) {
                       return _c(
                         "li",
@@ -20082,7 +20222,7 @@ var render = function() {
                             _vm._v(
                               " " +
                                 _vm._s(reply.created_at_human) +
-                                "\n                    "
+                                "\n                        "
                             ),
                             _c("p", [_vm._v(_vm._s(reply.body))]),
                             _vm._v(" "),
