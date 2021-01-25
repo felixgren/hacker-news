@@ -1960,6 +1960,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2031,6 +2040,33 @@ __webpack_require__.r(__webpack_exports__);
 
       ;
       this.replyFormVisible = commentId;
+    },
+    deleteComment: function deleteComment(commentId) {
+      if (!confirm('You sure about that?')) {
+        return;
+      }
+
+      this.deleteById(commentId);
+      this.$http["delete"]('10/comments/' + commentId);
+    },
+    deleteById: function deleteById(commentId) {
+      var _this4 = this;
+
+      this.comments.map(function (comment, index) {
+        if (comment.id === commentId) {
+          _this4.comments.splice(index, 1);
+
+          return;
+        }
+
+        comment.replies.data.map(function (reply, replyIndex) {
+          if (reply.id === commentId) {
+            _this4.comments[index].replies.data.splice(replyIndex, 1);
+
+            return;
+          }
+        });
+      });
     }
   },
   mounted: function mounted() {
@@ -19899,9 +19935,9 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", [
-                      _c("ul", [
+                      _c("ul", { staticClass: "text-sm" }, [
                         _vm.$root.user.authenticated
-                          ? _c("li", { staticClass: "text-blue-500 text-sm" }, [
+                          ? _c("li", { staticClass: "text-blue-500" }, [
                               _c(
                                 "a",
                                 {
@@ -19924,7 +19960,25 @@ var render = function() {
                                 ]
                               )
                             ])
-                          : _vm._e()
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "text-red-500" }, [
+                          _vm.$root.user.id === parseInt(comment.user_id)
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.deleteComment(comment.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Delete")]
+                              )
+                            : _vm._e()
+                        ])
                       ]),
                       _vm._v(" "),
                       _vm.replyFormVisible === comment.id
@@ -20028,7 +20082,27 @@ var render = function() {
                                 _vm._s(reply.created_at_human) +
                                 "\n                    "
                             ),
-                            _c("p", [_vm._v(_vm._s(reply.body))])
+                            _c("p", [_vm._v(_vm._s(reply.body))]),
+                            _vm._v(" "),
+                            _c("ul", { staticClass: "text-sm" }, [
+                              _c("li", { staticClass: "text-red-500" }, [
+                                _vm.$root.user.id === parseInt(reply.user_id)
+                                  ? _c(
+                                      "a",
+                                      {
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.deleteComment(reply.id)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Delete")]
+                                    )
+                                  : _vm._e()
+                              ])
+                            ])
                           ])
                         ]
                       )

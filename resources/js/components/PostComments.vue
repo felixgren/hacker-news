@@ -33,9 +33,12 @@
                     </div>
 
                     <div>
-                        <ul>
-                            <li v-if="$root.user.authenticated" class="text-blue-500 text-sm">
+                        <ul class="text-sm">
+                            <li v-if="$root.user.authenticated" class="text-blue-500">
                                 <a href="#" @click.prevent="toggleReplyForm(comment.id)">{{ replyFormVisible === comment.id ? 'Cancel' : 'Reply' }}</a>
+                            </li>
+                            <li class="text-red-500">
+                                <a href="#" v-if="$root.user.id === parseInt(comment.user_id)" @click.prevent="deleteComment(comment.id)">Delete</a>
                             </li>
                         </ul>
 
@@ -55,6 +58,12 @@
                     <div class="">
                         <a :href="'/users/' + reply.user.data.username + '/posts'" class="text-blue-500">{{ reply.user.data.username }}</a> {{ reply.created_at_human }}
                         <p>{{ reply.body}}</p>
+
+                        <ul class="text-sm">
+                            <li class="text-red-500">
+                                <a href="#" v-if="$root.user.id === parseInt(reply.user_id)" @click.prevent="deleteComment(reply.id)">Delete</a>
+                            </li>
+                        </ul>
                     </div>
                     </li>
                 </div>
@@ -122,6 +131,29 @@ export default {
 
             this.replyFormVisible = commentId;
         },
+        deleteComment (commentId) {
+            if (!confirm('You sure about that?')) {
+                return;
+            }
+
+            this.deleteById(commentId);
+            this.$http.delete('10/comments/' + commentId);
+        },
+        deleteById (commentId) {
+            this.comments.map((comment, index) => {
+                    if (comment.id === commentId) {
+                        this.comments.splice(index, 1);
+                        return;
+                    }
+
+            comment.replies.data.map((reply, replyIndex) => {
+                    if (reply.id === commentId) {
+                        this.comments[index].replies.data.splice(replyIndex, 1);
+                        return;
+                    }
+                })
+            });
+        }
     },
     mounted() {
         this.getComments();

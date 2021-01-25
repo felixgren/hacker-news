@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use App\Transformers\CommentTransformer;
@@ -11,7 +12,7 @@ class PostCommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->only(['create']);
+        $this->middleware(['auth'])->only(['create', 'delete']);
     }
 
     public function index(Post $post)
@@ -39,5 +40,14 @@ class PostCommentController extends Controller
                 ->transformWith(new CommentTransformer)
                 ->toArray()
         );
+    }
+
+    public function delete(Post $post, Comment $comment)
+    {
+        $this->authorize('delete', $comment);
+        // Fix input validation if time
+        $comment->delete();
+
+        return response()->json(null, 200);
     }
 }

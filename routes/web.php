@@ -49,3 +49,4 @@ Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy']);
 
 Route::get('/posts/{post}/comments', [PostCommentController::class, 'index'])->name('posts.comments');
 Route::post('/posts/{post}/comments', [PostCommentController::class, 'create']);
+Route::delete('/posts/{post}/comments/{comment}', [PostCommentController::class, 'delete']);
