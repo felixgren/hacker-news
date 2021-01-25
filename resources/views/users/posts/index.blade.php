@@ -13,7 +13,7 @@
             <p class="text-center"> {{ $user->name }} has {{ $posts->total() }} {{ Str::plural('post', $posts->total())}} 
                 and {{ $user->receivedLikes->count() }} karma</p>
                 @foreach ($posts as $post)
-                    <x-post :post="$post" />
+                    <x-post :post="$post" :singlePost="$singlePost ?? ''"/>
                 @endforeach
 
                 {{ $posts->links() }} {{-- Included tailwind view --}}

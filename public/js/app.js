@@ -1983,19 +1983,21 @@ __webpack_require__.r(__webpack_exports__);
 
     };
   },
-  props: {},
+  props: {
+    postId: null
+  },
   methods: {
     getComments: function getComments() {
       var _this = this;
 
-      this.$http.get('/posts/10/comments').then(function (response) {
+      this.$http.get("/posts/".concat(this.postId, "/comments")).then(function (response) {
         _this.comments = response.body.data;
       });
     },
     createComment: function createComment() {
       var _this2 = this;
 
-      this.$http.post('/posts/10/comments', {
+      this.$http.post("/posts/".concat(this.postId, "/comments"), {
         body: this.body
       }).then(function (response) {
         _this2.comments.unshift(response.data.data);
@@ -2011,7 +2013,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       console.log(commentId);
-      this.$http.post('/posts/10/comments', {
+      this.$http.post("/posts/".concat(this.postId, "/comments"), {
         body: this.replyBody,
         reply_id: commentId
       }).then(function (response) {
@@ -2047,7 +2049,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.deleteById(commentId);
-      this.$http["delete"]('10/comments/' + commentId);
+      this.$http["delete"]("".concat(this.postId, "/comments/").concat(commentId));
     },
     deleteById: function deleteById(commentId) {
       var _this4 = this;

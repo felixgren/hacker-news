@@ -2,8 +2,6 @@
 
 <div class="bg-gray-200 p-3 flex items-center my-3 rounded dark:bg-black-gh-bg dark:text-white">
     <div class="w-full max-w-xs-2">
-
-        <p>status: {{$singlePost}}</p>
         
         <div style="width: calc(100% - 46px);" class="absolute flex justify-between">
             <a href="{{ route('users.posts', $post->user) }}">

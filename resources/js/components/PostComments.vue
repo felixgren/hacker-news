@@ -84,15 +84,16 @@ export default {
         }
     },
     props: {
+        postId: null,
     },
     methods: {
         getComments() {
-            this.$http.get('/posts/10/comments').then(response => {
+            this.$http.get(`/posts/${this.postId}/comments`).then(response => {
                 this.comments = response.body.data;
             });
         },
         createComment () {
-            this.$http.post('/posts/10/comments', {
+            this.$http.post(`/posts/${this.postId}/comments`, {
                 body: this.body
             }).then(response => {
                 this.comments.unshift(response.data.data);
@@ -104,7 +105,7 @@ export default {
         },
         createReply (commentId) {
             console.log(commentId)
-            this.$http.post('/posts/10/comments', {
+            this.$http.post(`/posts/${this.postId}/comments`, {
                 body: this.replyBody,
                 reply_id: commentId
             }).then(response => {
@@ -137,7 +138,7 @@ export default {
             }
 
             this.deleteById(commentId);
-            this.$http.delete('10/comments/' + commentId);
+            this.$http.delete(`${this.postId}/comments/${commentId}`)
         },
         deleteById (commentId) {
             this.comments.map((comment, index) => {
