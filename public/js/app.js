@@ -2014,8 +2014,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2024,9 +2022,7 @@ __webpack_require__.r(__webpack_exports__);
       body: null,
       // Post comment body
       replyBody: null,
-      // Post comment body
       editBody: null,
-      // Post comment body
       replyFormVisible: null,
       errors: [],
       // Will store validation errors
@@ -2061,88 +2057,26 @@ __webpack_require__.r(__webpack_exports__);
         _this2.errors = response.body.errors.body;
       });
     },
-    createEdit: function createEdit(commentId) {
-      var _this3 = this;
-
-      // this.editById(commentId);
-      this.$http.patch("".concat(this.postId, "/comments/").concat(commentId), {
-        body: this.editBody
-      }).then(function (response) {
-        console.log(response);
-
-        _this3.editById(commentId, response);
-
-        console.log('yaay');
-      }, function (response) {
-        console.log('OH NO'); // this.errors = response.body.errors.body
-      });
-    },
-    editById: function editById(commentId, response) {
-      var _this4 = this;
-
-      this.comments.map(function (comment, index) {
-        if (comment.id === commentId) {
-          console.log('not ready');
-          console.log(_this4.comments[index]);
-          console.log('before edit');
-          console.log(_this4.comments);
-          _this4.comments[index].body = response.body.body;
-          _this4.comments[index].updated_at = response.body.updated_at;
-          _this4.comments[index].updated_at_human = '< 1 minute ago';
-          console.log('ready');
-          console.log(_this4.comments[index]);
-          console.log('after edit');
-          console.log(_this4.comments);
-          console.log('comment edit ready'); // update created at & comment body
-
-          _this4.editBody = null;
-          _this4.editFormVisible = null; // Close reply window
-
-          return;
-        }
-
-        comment.replies.data.map(function (reply, replyIndex) {
-          if (reply.id === commentId) {
-            console.log('reply edit ready');
-            console.log(response.body.body);
-            console.log(reply);
-            console.log(reply.body);
-            console.log(_this4.comments[index].replies.data[replyIndex].body);
-            console.log(_this4.comments[index].replies.data[replyIndex].updated_at);
-            _this4.comments[index].replies.data[replyIndex].body = response.body.body;
-            _this4.comments[index].replies.data[replyIndex].updated_at = response.body.updated_at;
-            _this4.comments[index].replies.data[replyIndex].updated_at_human = '< 1 minute ago'; // this.comments[index].replies.body = response.body.body;
-            // this.comments[index].replies.updated_at = response.body.updated_at;
-            // this.comments[index].replies.updated_at_human = '< 1 minute ago';
-
-            _this4.editBody = null;
-            _this4.editFormVisible = null; // Close reply window
-
-            return;
-          }
-        });
-      });
-    },
     createReply: function createReply(commentId) {
-      var _this5 = this;
+      var _this3 = this;
 
       console.log(commentId);
       this.$http.post("/posts/".concat(this.postId, "/comments"), {
         body: this.replyBody,
         reply_id: commentId
       }).then(function (response) {
-        _this5.comments.map(function (comment, index) {
+        _this3.comments.map(function (comment, index) {
           if (comment.id === commentId) {
-            _this5.comments[index].replies.data.push(response.data.data);
+            _this3.comments[index].replies.data.push(response.data.data);
           }
         });
 
-        _this5.replyBody = null;
-        _this5.replyFormVisible = null; // Close reply window
+        _this3.replyBody = null;
+        _this3.replyFormVisible = null; // Close reply window
 
-        _this5.errors = null;
+        _this3.errors = null;
       }, function (response) {
-        _this5.errors = response.body.errors.body;
+        _this3.errors = response.body.errors.body;
       });
     },
     toggleReplyForm: function toggleReplyForm(commentId) {
@@ -2157,6 +2091,79 @@ __webpack_require__.r(__webpack_exports__);
       ;
       this.replyFormVisible = commentId;
     },
+    deleteComment: function deleteComment(commentId) {
+      if (!confirm('You sure about that?')) {
+        return;
+      }
+
+      this.deleteById(commentId);
+      this.$http["delete"]("".concat(this.postId, "/comments/").concat(commentId));
+    },
+    deleteById: function deleteById(commentId) {
+      var _this4 = this;
+
+      this.comments.map(function (comment, index) {
+        if (comment.id === commentId) {
+          _this4.comments.splice(index, 1);
+
+          return;
+        }
+
+        comment.replies.data.map(function (reply, replyIndex) {
+          if (reply.id === commentId) {
+            _this4.comments[index].replies.data.splice(replyIndex, 1);
+
+            return;
+          }
+        });
+      });
+    },
+    // Yes, these should be refactored.
+    createEdit: function createEdit(commentId) {
+      var _this5 = this;
+
+      this.$http.patch("".concat(this.postId, "/comments/").concat(commentId), {
+        body: this.editBody
+      }).then(function (response) {
+        console.log(response);
+
+        _this5.editById(commentId, response);
+
+        _this5.editBody = null;
+        _this5.editFormVisible = null;
+      }, function (response) {
+        console.log('OH NO');
+        _this5.errors = response.body.errors.body;
+      });
+    },
+    editById: function editById(commentId, response) {
+      var _this6 = this;
+
+      this.comments.map(function (comment, index) {
+        if (comment.id === commentId) {
+          console.log('Before edit');
+          console.log(_this6.comments);
+          _this6.comments[index].body = response.body.body;
+          _this6.comments[index].updated_at = response.body.updated_at;
+          _this6.comments[index].updated_at_human = '< 1 minute ago';
+          console.log('After edit');
+          console.log(_this6.comments);
+          return;
+        }
+
+        comment.replies.data.map(function (reply, replyIndex) {
+          if (reply.id === commentId) {
+            console.log(response.body.body);
+            console.log(reply.body);
+            console.log(_this6.comments[index].replies.data[replyIndex].body);
+            _this6.comments[index].replies.data[replyIndex].body = response.body.body;
+            _this6.comments[index].replies.data[replyIndex].updated_at = response.body.updated_at;
+            _this6.comments[index].replies.data[replyIndex].updated_at_human = '< 1 minute ago';
+            return;
+          }
+        });
+      });
+    },
     toggleEditForm: function toggleEditForm(commentId) {
       this.editBody = null; // Check if selected form is the current open and close if true
       // Others handled by v-if in template: line 44
@@ -2168,33 +2175,6 @@ __webpack_require__.r(__webpack_exports__);
 
       ;
       this.editFormVisible = commentId;
-    },
-    deleteComment: function deleteComment(commentId) {
-      if (!confirm('You sure about that?')) {
-        return;
-      }
-
-      this.deleteById(commentId);
-      this.$http["delete"]("".concat(this.postId, "/comments/").concat(commentId));
-    },
-    deleteById: function deleteById(commentId) {
-      var _this6 = this;
-
-      this.comments.map(function (comment, index) {
-        if (comment.id === commentId) {
-          _this6.comments.splice(index, 1);
-
-          return;
-        }
-
-        comment.replies.data.map(function (reply, replyIndex) {
-          if (reply.id === commentId) {
-            _this6.comments[index].replies.data.splice(replyIndex, 1);
-
-            return;
-          }
-        });
-      });
     }
   },
   mounted: function mounted() {
@@ -19998,9 +19978,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "text-red-500" }, [
                 _vm._v(
-                  "\n                " +
+                  "\n            " +
                     _vm._s(_vm.errors ? _vm.errors[0] : "") +
-                    "\n            "
+                    "\n        "
                 )
               ])
             ])
@@ -20055,9 +20035,9 @@ var render = function() {
                         [_vm._v(_vm._s(comment.user.data.username))]
                       ),
                       _vm._v(
-                        " \n                        " +
+                        " \n                    " +
                           _vm._s(comment.created_at_human) +
-                          "\n                        "
+                          "\n                    "
                       ),
                       _c("span", [
                         _vm._v(
@@ -20067,16 +20047,7 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(comment.body))]),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "CREATED: " +
-                            _vm._s(comment.created_at) +
-                            " | UPDATED: " +
-                            _vm._s(comment.updated_at)
-                        )
-                      ])
+                      _c("p", [_vm._v(_vm._s(comment.body))])
                     ]),
                     _vm._v(" "),
                     _c("div", [
@@ -20302,9 +20273,9 @@ var render = function() {
                               [_vm._v(_vm._s(comment.user.data.username))]
                             ),
                             _vm._v(
-                              " \n                            " +
+                              " \n                        " +
                                 _vm._s(reply.created_at_human) +
-                                "\n                            "
+                                "\n                        "
                             ),
                             _c("span", [
                               _vm._v(
@@ -20314,16 +20285,7 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _c("p", [_vm._v(_vm._s(reply.body))]),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "CREATED: " +
-                                  _vm._s(reply.created_at) +
-                                  " | UPDATED: " +
-                                  _vm._s(reply.updated_at)
-                              )
-                            ])
+                            _c("p", [_vm._v(_vm._s(reply.body))])
                           ]),
                           _vm._v(" "),
                           _c("div", {}, [

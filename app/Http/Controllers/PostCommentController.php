@@ -59,7 +59,6 @@ class PostCommentController extends Controller
         // $comment->update();
         $comment->save();
 
-        $hello = 'hejsan svejsan jag im in the console yeyeye';
         return response()->json($comment, 200);
     }
 }

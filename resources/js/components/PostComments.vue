@@ -22,6 +22,7 @@
         <ul class="">
             <li v-for="comment in comments" :key="comment.id" class="bg-gray-200 my-4 px-2 border dark:bg-transparent dark:border-solid dark:border-white border-opacity-20">                
                 <div>
+                    <!-- Comments content start -->
                     <div>
                         <a :href="'/users/' + comment.user.data.username + '/posts'">
                             <img :src="comment.user.data.avatar" v-bind:alt="comment.user.data.username + ' avatar'" class="w-16 h-auto max-h-16">
@@ -31,11 +32,12 @@
                         <a :href="'/users/' + comment.user.data.username + '/posts'" class="text-blue-500">{{ comment.user.data.username }}</a> 
                         {{ comment.created_at_human }}
                         <span> : last update {{ comment.updated_at_human }} </span>
+                        <!-- <p class="text-xs text-gray-500 text-opacity-50">CREATED: {{ comment.created_at }} | UPDATED: {{ comment.updated_at }}</p> -->
                         <p>{{ comment.body}}</p>
-                        <p>CREATED: {{ comment.created_at }} | UPDATED: {{ comment.updated_at }}</p>
                     </div>
+                    <!-- END -->
 
-                    <!-- Comment reply start -->
+                    <!-- Comment reply form & delete start -->
                     <div>
                         <ul class="text-sm">
                             <li v-if="$root.user.authenticated" class="text-blue-500">
@@ -52,8 +54,9 @@
                                 <button aria-label="Submit" type="submit" @click.prevent="createReply(comment.id)" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post reply</button>
                         </div>
                     </div>
-                    <!-- Comment reply end -->
+                    <!-- END -->
 
+                    <!-- Comment edit form start -->
                     <div>
                         <ul class="text-sm">
                             <li v-if="$root.user.authenticated" class="text-green-500">
@@ -67,17 +70,9 @@
                                 <button aria-label="Submit" type="submit" @click.prevent="createEdit(comment.id)" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post edit</button>
                         </div>
                     </div>
-<!-- 
-                    <div>
-                        <label for="comment-body" id="comment-body" class="sr-only">Post comment</label>
-                        <textarea name="comment-body" v-model="body"
-                        class="bg-gray-100 border border-solid border-gray-300 w-full mt-2 p-2 rounded-sm dark:border-gray-400 dark:bg-transparent" placeholder="Add a comment"></textarea>
-                    </div>
+                    <!-- END -->
 
-                    <div>
-                        <button aria-label="Submit" type="submit" @click.prevent="createComment" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post comment</button>
-                    </div> -->
-
+                    <!-- Comment replies content start -->
                     <li v-for="reply in comment.replies.data" :key="reply.id" class="ml-8 bg-gray-200 my-4 pl-4 border-l-2 border-red-500 dark:bg-transparent dark:border-solid border-opacity-50">
                         <div>
                             <a :href="'/users/' + reply.user.data.username + '/posts'">
@@ -90,9 +85,11 @@
                             {{ reply.created_at_human }}
                             <span> : last update {{ reply.updated_at_human }} </span>
                             <p>{{ reply.body}}</p>
-                            <p>CREATED: {{ reply.created_at }} | UPDATED: {{ reply.updated_at }}</p>
+                            <!-- <p class="text-xs text-gray-500 text-opacity-50">CREATED: {{ reply.created_at }} | UPDATED: {{ reply.updated_at }}</p> -->
                         </div>
+                        <!-- END -->
 
+                        <!-- Comment reply delete & edit form start -->
                         <div class="">
                             <ul class="text-sm">
                                 <li class="text-red-500">
@@ -112,6 +109,7 @@
                                     <button aria-label="Submit" type="submit" @click.prevent="createEdit(reply.id)" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post edit</button>
                             </div>
                         </div>
+                        <!-- END -->
                     </li>
                 </div>
             </li>
@@ -125,8 +123,8 @@ export default {
         return{
             comments: [], // Will store comments of instance
             body: null, // Post comment body
-            replyBody: null, // Post comment body
-            editBody: null, // Post comment body
+            replyBody: null,
+            editBody: null,
             replyFormVisible: null,
             errors: [], // Will store validation errors
             editFormVisible: null,
@@ -151,72 +149,6 @@ export default {
                 this.errors = null; // Clear error message
             }, response => {
                 this.errors = response.body.errors.body
-            });
-        },
-        createEdit (commentId) {
-            // this.editById(commentId);
-            this.$http.patch(`${this.postId}/comments/${commentId}`, {
-                body: this.editBody
-            }).then(response => {
-                console.log(response)
-                this.editById(commentId, response);
-                console.log('yaay');
-            }, response => {
-                console.log('OH NO');
-                // this.errors = response.body.errors.body
-            });
-        },
-        editById (commentId, response) {
-            this.comments.map((comment, index) => {
-                    if (comment.id === commentId) {
-
-                        console.log('not ready')
-                        console.log(this.comments[index])
-
-                        console.log('before edit')
-                        console.log(this.comments)
-
-                        this.comments[index].body = response.body.body;
-                        this.comments[index].updated_at = response.body.updated_at;
-                        this.comments[index].updated_at_human = '< 1 minute ago';
-
-                        console.log('ready')
-                        console.log(this.comments[index])
-
-                        console.log('after edit')
-                        console.log(this.comments)
-
-                        console.log('comment edit ready')
-
-                        // update created at & comment body
-                        this.editBody = null;
-                        this.editFormVisible = null; // Close reply window
-                        return;
-                    }
-
-            comment.replies.data.map((reply, replyIndex) => {
-                    if (reply.id === commentId) {
-                        console.log('reply edit ready')
-                        
-                        console.log(response.body.body)
-                        console.log(reply)
-                        console.log(reply.body)
-                        console.log(this.comments[index].replies.data[replyIndex].body)
-                        console.log(this.comments[index].replies.data[replyIndex].updated_at)
-
-                        this.comments[index].replies.data[replyIndex].body = response.body.body;
-                        this.comments[index].replies.data[replyIndex].updated_at = response.body.updated_at;
-                        this.comments[index].replies.data[replyIndex].updated_at_human = '< 1 minute ago';
-
-                        // this.comments[index].replies.body = response.body.body;
-                        // this.comments[index].replies.updated_at = response.body.updated_at;
-                        // this.comments[index].replies.updated_at_human = '< 1 minute ago';
-
-                        this.editBody = null;
-                        this.editFormVisible = null; // Close reply window
-                        return;
-                    }
-                })
             });
         },
         createReply (commentId) {
@@ -248,17 +180,6 @@ export default {
 
             this.replyFormVisible = commentId;
         },
-        toggleEditForm (commentId) {
-            this.editBody = null;
-            // Check if selected form is the current open and close if true
-            // Others handled by v-if in template: line 44
-            if (this.editFormVisible === commentId) {
-                this.editFormVisible = null;
-                return;
-            };
-
-            this.editFormVisible = commentId;
-        },    
         deleteComment (commentId) {
             if (!confirm('You sure about that?')) {
                 return;
@@ -281,7 +202,63 @@ export default {
                     }
                 })
             });
-        }
+        },
+
+        // Yes, these should be refactored.
+        createEdit (commentId) {
+            this.$http.patch(`${this.postId}/comments/${commentId}`, {
+                body: this.editBody
+            }).then(response => {
+                console.log(response)
+                this.editById(commentId, response);
+                this.editBody = null;
+                this.editFormVisible = null;
+            }, response => {
+                console.log('OH NO');
+                this.errors = response.body.errors.body
+            });
+        },
+        editById (commentId, response) {
+            this.comments.map((comment, index) => {
+                    if (comment.id === commentId) {
+                        console.log('Before edit')
+                        console.log(this.comments)
+
+                        this.comments[index].body = response.body.body;
+                        this.comments[index].updated_at = response.body.updated_at;
+                        this.comments[index].updated_at_human = '< 1 minute ago';
+
+                        console.log('After edit')
+                        console.log(this.comments)
+                        return;
+                    }
+
+            comment.replies.data.map((reply, replyIndex) => {
+                    if (reply.id === commentId) {
+          
+                        console.log(response.body.body)
+                        console.log(reply.body)
+                        console.log(this.comments[index].replies.data[replyIndex].body)
+
+                        this.comments[index].replies.data[replyIndex].body = response.body.body;
+                        this.comments[index].replies.data[replyIndex].updated_at = response.body.updated_at;
+                        this.comments[index].replies.data[replyIndex].updated_at_human = '< 1 minute ago';
+                        return;
+                    }
+                })
+            });
+        },
+        toggleEditForm (commentId) {
+            this.editBody = null;
+            // Check if selected form is the current open and close if true
+            // Others handled by v-if in template: line 44
+            if (this.editFormVisible === commentId) {
+                this.editFormVisible = null;
+                return;
+            };
+
+            this.editFormVisible = commentId;
+        },    
     },
     mounted() {
         this.getComments();
