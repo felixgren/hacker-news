@@ -140,6 +140,7 @@ export default {
             this.$http.patch(`${this.postId}/comments/${commentId}`, {
                 body: this.editBody
             }).then(response => {
+                console.log(response)
                 this.editById(commentId, response);
                 console.log('yaay');
             }, response => {
@@ -150,11 +151,41 @@ export default {
         editById (commentId, response) {
             this.comments.map((comment, index) => {
                     if (comment.id === commentId) {
-                        console.log(response.body);
-                        console.log(this.comments[index]);
-                        // console.log(this.comments[index].body);
-                        console.log(response.body.body);
-                        this.comments.splice(index, 1, response.body);
+                        // response.body =
+                        // console.log('stop1')
+                        // console.log(response.body);
+                        // console.log(response.body.body);
+                        // console.log(this.comments);
+                        // console.log(this.comments[index]);
+                        // console.log('stop2')
+                        // console.log(comment)
+
+                        // console.log(response.body);
+
+                        // console.log(this.comments[index].body)
+
+                        // this.comments.splice(index, 1, response.body);
+                        console.log(response.body)
+
+                        console.log('not ready')
+                        console.log(this.comments[index])
+
+                        console.log('before edit')
+                        console.log(this.comments)
+
+                        this.comments[index].body = response.body.body;
+                        this.comments[index].updated_at = response.body.updated_at;
+                        this.comments[index].updated_at_human = '< 1 minute ago';
+
+                        console.log('ready')
+                        console.log(this.comments[index])
+
+                        console.log('after edit')
+                        console.log(this.comments)
+
+                        // update created at & comment body
+                        this.editBody = null;
+                        this.editFormVisible = null; // Close reply window
                         return;
                     }
 

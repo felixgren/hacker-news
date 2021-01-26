@@ -2050,6 +2050,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$http.patch("".concat(this.postId, "/comments/").concat(commentId), {
         body: this.editBody
       }).then(function (response) {
+        console.log(response);
+
         _this3.editById(commentId, response);
 
         console.log('yaay');
@@ -2062,12 +2064,32 @@ __webpack_require__.r(__webpack_exports__);
 
       this.comments.map(function (comment, index) {
         if (comment.id === commentId) {
+          // response.body =
+          // console.log('stop1')
+          // console.log(response.body);
+          // console.log(response.body.body);
+          // console.log(this.comments);
+          // console.log(this.comments[index]);
+          // console.log('stop2')
+          // console.log(comment)
+          // console.log(response.body);
+          // console.log(this.comments[index].body)
+          // this.comments.splice(index, 1, response.body);
           console.log(response.body);
-          console.log(_this4.comments[index]); // console.log(this.comments[index].body);
+          console.log('not ready');
+          console.log(_this4.comments[index]);
+          console.log('before edit');
+          console.log(_this4.comments);
+          _this4.comments[index].body = response.body.body;
+          _this4.comments[index].updated_at = response.body.updated_at;
+          _this4.comments[index].updated_at_human = '< 1 minute ago';
+          console.log('ready');
+          console.log(_this4.comments[index]);
+          console.log('after edit');
+          console.log(_this4.comments); // update created at & comment body
 
-          console.log(response.body.body);
-
-          _this4.comments.splice(index, 1, response.body);
+          _this4.editBody = null;
+          _this4.editFormVisible = null; // Close reply window
 
           return;
         }
