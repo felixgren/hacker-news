@@ -136,27 +136,34 @@ export default {
             });
         },
         createEdit (commentId) {
-            // this.$http.delete(`${this.postId}/comments/${commentId}`)
-
+            // this.editById(commentId);
             this.$http.patch(`${this.postId}/comments/${commentId}`, {
                 body: this.editBody
             }).then(response => {
-                // this.comments.unshift(response.data.data);
-                // this.editBody = null; // Clear comment content from input field
-                // this.errors = null; // Clear error message
-                // console.log(response.data.data);
-
+                this.editById(commentId, response);
                 console.log('yaay');
-
-            // this.comments.map((comment, index) => {
-            //         if (comment.id === commentId) {
-            //             this.comments.splice(index, 1);
-            //             return;
-            //         }
-
             }, response => {
                 console.log('OH NO');
                 // this.errors = response.body.errors.body
+            });
+        },
+        editById (commentId, response) {
+            this.comments.map((comment, index) => {
+                    if (comment.id === commentId) {
+                        console.log(response.body);
+                        console.log(this.comments[index]);
+                        // console.log(this.comments[index].body);
+                        console.log(response.body.body);
+                        this.comments.splice(index, 1, response.body);
+                        return;
+                    }
+
+            comment.replies.data.map((reply, replyIndex) => {
+                    if (reply.id === commentId) {
+                        // this.comments[index].replies.data.splice(replyIndex, 1);
+                        return;
+                    }
+                })
             });
         },
         createReply (commentId) {

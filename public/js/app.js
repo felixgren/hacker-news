@@ -2044,43 +2044,62 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createEdit: function createEdit(commentId) {
-      // this.$http.delete(`${this.postId}/comments/${commentId}`)
+      var _this3 = this;
+
+      // this.editById(commentId);
       this.$http.patch("".concat(this.postId, "/comments/").concat(commentId), {
         body: this.editBody
       }).then(function (response) {
-        // this.comments.unshift(response.data.data);
-        // this.editBody = null; // Clear comment content from input field
-        // this.errors = null; // Clear error message
-        // console.log(response.data.data);
-        console.log('yaay'); // this.comments.map((comment, index) => {
-        //         if (comment.id === commentId) {
-        //             this.comments.splice(index, 1);
-        //             return;
-        //         }
+        _this3.editById(commentId, response);
+
+        console.log('yaay');
       }, function (response) {
         console.log('OH NO'); // this.errors = response.body.errors.body
       });
     },
+    editById: function editById(commentId, response) {
+      var _this4 = this;
+
+      this.comments.map(function (comment, index) {
+        if (comment.id === commentId) {
+          console.log(response.body);
+          console.log(_this4.comments[index]); // console.log(this.comments[index].body);
+
+          console.log(response.body.body);
+
+          _this4.comments.splice(index, 1, response.body);
+
+          return;
+        }
+
+        comment.replies.data.map(function (reply, replyIndex) {
+          if (reply.id === commentId) {
+            // this.comments[index].replies.data.splice(replyIndex, 1);
+            return;
+          }
+        });
+      });
+    },
     createReply: function createReply(commentId) {
-      var _this3 = this;
+      var _this5 = this;
 
       console.log(commentId);
       this.$http.post("/posts/".concat(this.postId, "/comments"), {
         body: this.replyBody,
         reply_id: commentId
       }).then(function (response) {
-        _this3.comments.map(function (comment, index) {
+        _this5.comments.map(function (comment, index) {
           if (comment.id === commentId) {
-            _this3.comments[index].replies.data.push(response.data.data);
+            _this5.comments[index].replies.data.push(response.data.data);
           }
         });
 
-        _this3.replyBody = null;
-        _this3.replyFormVisible = null; // Close reply window
+        _this5.replyBody = null;
+        _this5.replyFormVisible = null; // Close reply window
 
-        _this3.errors = null;
+        _this5.errors = null;
       }, function (response) {
-        _this3.errors = response.body.errors.body;
+        _this5.errors = response.body.errors.body;
       });
     },
     toggleReplyForm: function toggleReplyForm(commentId) {
@@ -2116,18 +2135,18 @@ __webpack_require__.r(__webpack_exports__);
       this.$http["delete"]("".concat(this.postId, "/comments/").concat(commentId));
     },
     deleteById: function deleteById(commentId) {
-      var _this4 = this;
+      var _this6 = this;
 
       this.comments.map(function (comment, index) {
         if (comment.id === commentId) {
-          _this4.comments.splice(index, 1);
+          _this6.comments.splice(index, 1);
 
           return;
         }
 
         comment.replies.data.map(function (reply, replyIndex) {
           if (reply.id === commentId) {
-            _this4.comments[index].replies.data.splice(replyIndex, 1);
+            _this6.comments[index].replies.data.splice(replyIndex, 1);
 
             return;
           }
