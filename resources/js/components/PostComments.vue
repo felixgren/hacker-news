@@ -79,21 +79,39 @@
                     </div> -->
 
                     <li v-for="reply in comment.replies.data" :key="reply.id" class="ml-8 bg-gray-200 my-4 pl-4 border-l-2 border-red-500 dark:bg-transparent dark:border-solid border-opacity-50">
-                    <div>
-                        <a :href="'/users/' + reply.user.data.username + '/posts'">
-                            <img :src="reply.user.data.avatar" v-bind:alt="reply.user.data.username + ' avatar'" class="w-16 h-auto max-h-16">
-                        </a>
-                    </div>
-                    <div class="">
-                        <a :href="'/users/' + reply.user.data.username + '/posts'" class="text-blue-500">{{ reply.user.data.username }}</a> {{ reply.created_at_human }}
-                        <p>{{ reply.body}}</p>
+                        <div>
+                            <a :href="'/users/' + reply.user.data.username + '/posts'">
+                                <img :src="reply.user.data.avatar" v-bind:alt="reply.user.data.username + ' avatar'" class="w-16 h-auto max-h-16">
+                            </a>
+                        </div>
 
-                        <ul class="text-sm">
-                            <li class="text-red-500">
-                                <a href="#" v-if="$root.user.id === parseInt(reply.user_id)" @click.prevent="deleteComment(reply.id)">Delete</a>
-                            </li>
-                        </ul>
-                    </div>
+                        <div>
+                            <a :href="'/users/' + reply.user.data.username + '/posts'" class="text-blue-500">{{ comment.user.data.username }}</a> 
+                            {{ reply.created_at_human }}
+                            <span> : last update {{ reply.updated_at_human }} </span>
+                            <p>{{ reply.body}}</p>
+                            <p>CREATED: {{ reply.created_at }} | UPDATED: {{ reply.updated_at }}</p>
+                        </div>
+
+                        <div class="">
+                            <ul class="text-sm">
+                                <li class="text-red-500">
+                                    <a href="#" v-if="$root.user.id === parseInt(reply.user_id)" @click.prevent="deleteComment(reply.id)">Delete</a>
+                                </li>
+                            </ul>
+
+                            <ul class="text-sm">
+                                <li v-if="$root.user.authenticated" class="text-green-500">
+                                    <a href="#" @click.prevent="toggleEditForm(reply.id)">{{ editFormVisible === reply.id ? 'Cancel' : 'Edit' }}</a>
+                                </li>
+                            </ul>
+
+                            <div v-if="editFormVisible === reply.id">
+                                <textarea name="comment-edit-body" v-model="editBody"
+                                class="bg-gray-100 border border-solid border-gray-300 w-full mt-2 p-2 rounded-sm dark:border-gray-400 dark:bg-transparent" v-bind:placeholder="reply.body"></textarea>
+                                    <button aria-label="Submit" type="submit" @click.prevent="createEdit(reply.id)" class="bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90">Post edit</button>
+                            </div>
+                        </div>
                     </li>
                 </div>
             </li>
@@ -151,21 +169,6 @@ export default {
         editById (commentId, response) {
             this.comments.map((comment, index) => {
                     if (comment.id === commentId) {
-                        // response.body =
-                        // console.log('stop1')
-                        // console.log(response.body);
-                        // console.log(response.body.body);
-                        // console.log(this.comments);
-                        // console.log(this.comments[index]);
-                        // console.log('stop2')
-                        // console.log(comment)
-
-                        // console.log(response.body);
-
-                        // console.log(this.comments[index].body)
-
-                        // this.comments.splice(index, 1, response.body);
-                        console.log(response.body)
 
                         console.log('not ready')
                         console.log(this.comments[index])
@@ -183,6 +186,8 @@ export default {
                         console.log('after edit')
                         console.log(this.comments)
 
+                        console.log('comment edit ready')
+
                         // update created at & comment body
                         this.editBody = null;
                         this.editFormVisible = null; // Close reply window
@@ -191,7 +196,24 @@ export default {
 
             comment.replies.data.map((reply, replyIndex) => {
                     if (reply.id === commentId) {
-                        // this.comments[index].replies.data.splice(replyIndex, 1);
+                        console.log('reply edit ready')
+                        
+                        console.log(response.body.body)
+                        console.log(reply)
+                        console.log(reply.body)
+                        console.log(this.comments[index].replies.data[replyIndex].body)
+                        console.log(this.comments[index].replies.data[replyIndex].updated_at)
+
+                        this.comments[index].replies.data[replyIndex].body = response.body.body;
+                        this.comments[index].replies.data[replyIndex].updated_at = response.body.updated_at;
+                        this.comments[index].replies.data[replyIndex].updated_at_human = '< 1 minute ago';
+
+                        // this.comments[index].replies.body = response.body.body;
+                        // this.comments[index].replies.updated_at = response.body.updated_at;
+                        // this.comments[index].replies.updated_at_human = '< 1 minute ago';
+
+                        this.editBody = null;
+                        this.editFormVisible = null; // Close reply window
                         return;
                     }
                 })

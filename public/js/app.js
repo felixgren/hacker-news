@@ -1998,6 +1998,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2064,18 +2082,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.comments.map(function (comment, index) {
         if (comment.id === commentId) {
-          // response.body =
-          // console.log('stop1')
-          // console.log(response.body);
-          // console.log(response.body.body);
-          // console.log(this.comments);
-          // console.log(this.comments[index]);
-          // console.log('stop2')
-          // console.log(comment)
-          // console.log(response.body);
-          // console.log(this.comments[index].body)
-          // this.comments.splice(index, 1, response.body);
-          console.log(response.body);
           console.log('not ready');
           console.log(_this4.comments[index]);
           console.log('before edit');
@@ -2086,7 +2092,8 @@ __webpack_require__.r(__webpack_exports__);
           console.log('ready');
           console.log(_this4.comments[index]);
           console.log('after edit');
-          console.log(_this4.comments); // update created at & comment body
+          console.log(_this4.comments);
+          console.log('comment edit ready'); // update created at & comment body
 
           _this4.editBody = null;
           _this4.editFormVisible = null; // Close reply window
@@ -2096,7 +2103,21 @@ __webpack_require__.r(__webpack_exports__);
 
         comment.replies.data.map(function (reply, replyIndex) {
           if (reply.id === commentId) {
-            // this.comments[index].replies.data.splice(replyIndex, 1);
+            console.log('reply edit ready');
+            console.log(response.body.body);
+            console.log(reply);
+            console.log(reply.body);
+            console.log(_this4.comments[index].replies.data[replyIndex].body);
+            console.log(_this4.comments[index].replies.data[replyIndex].updated_at);
+            _this4.comments[index].replies.data[replyIndex].body = response.body.body;
+            _this4.comments[index].replies.data[replyIndex].updated_at = response.body.updated_at;
+            _this4.comments[index].replies.data[replyIndex].updated_at_human = '< 1 minute ago'; // this.comments[index].replies.body = response.body.body;
+            // this.comments[index].replies.updated_at = response.body.updated_at;
+            // this.comments[index].replies.updated_at_human = '< 1 minute ago';
+
+            _this4.editBody = null;
+            _this4.editFormVisible = null; // Close reply window
+
             return;
           }
         });
@@ -20266,7 +20287,7 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _c("div", {}, [
+                          _c("div", [
                             _c(
                               "a",
                               {
@@ -20278,15 +20299,34 @@ var render = function() {
                                     "/posts"
                                 }
                               },
-                              [_vm._v(_vm._s(reply.user.data.username))]
+                              [_vm._v(_vm._s(comment.user.data.username))]
                             ),
                             _vm._v(
-                              " " +
+                              " \n                            " +
                                 _vm._s(reply.created_at_human) +
-                                "\n                        "
+                                "\n                            "
                             ),
+                            _c("span", [
+                              _vm._v(
+                                " : last update " +
+                                  _vm._s(reply.updated_at_human) +
+                                  " "
+                              )
+                            ]),
+                            _vm._v(" "),
                             _c("p", [_vm._v(_vm._s(reply.body))]),
                             _vm._v(" "),
+                            _c("p", [
+                              _vm._v(
+                                "CREATED: " +
+                                  _vm._s(reply.created_at) +
+                                  " | UPDATED: " +
+                                  _vm._s(reply.updated_at)
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", {}, [
                             _c("ul", { staticClass: "text-sm" }, [
                               _c("li", { staticClass: "text-red-500" }, [
                                 _vm.$root.user.id === parseInt(reply.user_id)
@@ -20305,7 +20345,84 @@ var render = function() {
                                     )
                                   : _vm._e()
                               ])
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _c("ul", { staticClass: "text-sm" }, [
+                              _vm.$root.user.authenticated
+                                ? _c("li", { staticClass: "text-green-500" }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.toggleEditForm(reply.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.editFormVisible === reply.id
+                                              ? "Cancel"
+                                              : "Edit"
+                                          )
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _vm.editFormVisible === reply.id
+                              ? _c("div", [
+                                  _c("textarea", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.editBody,
+                                        expression: "editBody"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "bg-gray-100 border border-solid border-gray-300 w-full mt-2 p-2 rounded-sm dark:border-gray-400 dark:bg-transparent",
+                                    attrs: {
+                                      name: "comment-edit-body",
+                                      placeholder: reply.body
+                                    },
+                                    domProps: { value: _vm.editBody },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.editBody = $event.target.value
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "bg-hacker-orange text-sm text-white text-semibold py-1 mt-2 rounded-sm w-1/4 opacity-90",
+                                      attrs: {
+                                        "aria-label": "Submit",
+                                        type: "submit"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.createEdit(reply.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Post edit")]
+                                  )
+                                ])
+                              : _vm._e()
                           ])
                         ]
                       )
