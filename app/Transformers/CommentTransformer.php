@@ -24,6 +24,8 @@ class CommentTransformer extends TransformerAbstract
             // Carbon works everywhere
             'created_at' => $comment->created_at->toDateTimeString(),
             'created_at_human' => $comment->created_at->diffForHumans(),
+            'updated_at' => $comment->updated_at->toDateTimeString(),
+            'updated_at_human' => $comment->updated_at->diffForHumans(),
         ];
     }
 
