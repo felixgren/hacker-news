@@ -2,9 +2,9 @@
 
 # Hacker News
 
-Hacker News Project!
+Hacker News clone featuring all you would expect: Accounts, posts, likes, profiles with avatar, bio, post history & statistics. Built in Laravel with blade for most of the site with the exception of Vue for live comment functionality on the posts.
 
-README.md is a WIP...
+README.md is a WIP... good thing [Fake News](https://github.com/felixgren/fake-news) is live at least..
 
 If you find any errors/suggestions, please do open an issue!
 
